@@ -1,30 +1,65 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
+import Vue from 'vue';
+import Router from 'vue-router';
+import c from '../core/config';
+import Home from '../components/common/Home.vue';
 
-Vue.use(VueRouter);
+Vue.use(Router);
 
 const routes = [
-  {
-    path: "/",
-    name: "Home",
-    component: Home
-  },
-  {
-    path: "/about",
-    name: "About",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue")
-  }
-];
+    {
+        path: '/',
+        redirect: '/dashboard'
+    },
+    {
+        path: '/',
+        component: Home,
+        meta: { title: '自述文件' },
+        children:[
+            {
+                path: 'dashboard',
+                component: () => import('../components/page/Home.vue'),
+                meta: { title: '系统首页' }
+            },
+            {
+                path: '/system/admin',
+                component: () => import('../components/page/Admin.vue'),
+                meta: { title: '管理员' }
+            },
+            {
+                path: '/member/list',
+                component: () => import('../components/page/MemberList.vue'),
+                meta: { title: '会员列表' }
+            },
+        ]    
+    },
+    {
+        path: '/login',
+        component: () => import('../components/page/Login.vue')
+    },
+    {
+        path: '/404',
+        component: () => import('../components/page/404.vue')
+    },
+    {
+        path: '*',
+        redirect: '/404'
+    }
+]
 
-const router = new VueRouter({
-  mode: "history",
-  base: process.env.BASE_URL,
-  routes
+const router = new Router({
+    mode: 'history',
+    base: process.env.BASE_URL,
+    routes,
+});
+
+router.beforeEach((to, from, next) => {
+    let token = sessionStorage.getItem(c.tokenKey);
+    if (!token && to.path !== '/login') {
+        // next('/login');
+        next();
+    } else {
+        next();
+    }
 });
 
 export default router;

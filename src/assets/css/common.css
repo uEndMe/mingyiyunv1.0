@@ -1,0 +1,30 @@
+
+.handle-box {
+    margin-bottom: 20px;
+    position: relative;
+}
+.handle-input {
+    position: absolute;
+    right: 30px;
+    width: 250px;
+    display: inline-block;
+}
+.mr10{
+    margin-right: 10px;
+}
+.red{
+    color: #ff0000;
+}
+.width130 {
+    width: 130px!important;
+}
+.el-tooltip__popper {
+    max-width: 50%;
+}
+
+.el-dialog--center .el-dialog__body {
+    padding: 0;
+}
+.el-dialog--center .el-dialog__header {
+    display: none;
+}
