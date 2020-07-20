@@ -16,7 +16,8 @@ export const makeSign = (arys) => {
         if(arys[newkey[i]] instanceof Object)  continue;
         
         if(params_string != '') params_string += '&';
-        params_string += newkey[i] + '=' + encodeURIComponent(arys[newkey[i]]);
+        // params_string += newkey[i] + '=' + encodeURIComponent(arys[newkey[i]]);
+        params_string += newkey[i] + '=' + arys[newkey[i]];
     }
 
     // console.log(params_string);

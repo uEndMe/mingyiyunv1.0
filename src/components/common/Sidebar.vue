@@ -104,13 +104,11 @@
                 'el-icon-lx-crown'
             ]
             menu().then(function(res){
-                console.log(res)
-                if(res !== false){
-                    for(let i=0;i<res.menu.length;i++){
-                        res.menu[i].icon = icons[i];
-                    }
-                    t.items = res.menu;
+                // console.log(res)
+                for(let i=0;i<res.menu.length;i++){
+                    res.menu[i].icon = icons[i];
                 }
+                t.items = res.menu;
             });
         }
     }

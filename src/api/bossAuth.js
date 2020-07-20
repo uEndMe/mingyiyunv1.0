@@ -27,7 +27,7 @@ export const password = (query) => {
 // 获取菜单数据
 export const menu = (query) => {
     return request({
-        url: '/boss/boss/auth/menu',
+        url: '/boss/boss/menu/list',
         data: (query || {})
     })
 }

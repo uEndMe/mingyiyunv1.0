@@ -8,7 +8,12 @@ module.exports = {
     assetsDir: 'static',
     productionSourceMap: false,
     devServer: {
-        proxy: "http://bs.yidaiyun.com.cn"
+        proxy: {
+            '/boss':{
+                target: 'http://bs.yidaiyun.com.cn/api/v1.0',
+                changeOrigin:true
+            },
+        }
     },
 
     configureWebpack: (config) => {

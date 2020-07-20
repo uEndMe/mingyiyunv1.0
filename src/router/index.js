@@ -55,8 +55,8 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
     let token = sessionStorage.getItem(c.tokenKey);
     if (!token && to.path !== '/login') {
-        // next('/login');
-        next();
+        next('/login');
+        // next();
     } else {
         next();
     }
