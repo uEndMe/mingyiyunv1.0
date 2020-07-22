@@ -1,0 +1,60 @@
+*{padding: 0; margin: 0;}
+
+.van-card, .van-cell, .van-field {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.van-card {
+    background-color: #ffffff;
+}
+
+.the-wall {
+    box-sizing: border-box;
+    padding: @global_padding;
+}
+
+.the-white {
+    background-color: #ffffff;
+}
+
+.the-ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow:ellipsis;
+}
+
+.bg-gray {
+    box-sizing: border-box;
+    height: 100vh;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch; //解决ios手机页面滑动卡顿
+    background-color: #fafafa;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+.bg {
+    box-sizing: border-box;
+    height: 100vh;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+.cell__line::after {
+    content: '';
+    display: block;
+    width: 89%;
+    height: 1px;
+    position: absolute;
+    bottom: 0;
+    background-color: #e5e5e5;
+}
+
+.cell__large {
+    padding: 15px 20px;
+}
