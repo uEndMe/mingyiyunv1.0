@@ -10,7 +10,7 @@ Admin.list = (query) => {
     })
 }
 
-// 角色下拉列表
+// 角色列表
 Admin.role_select = (query) => {
     return request({
         url: '/boss/boss/role/select',

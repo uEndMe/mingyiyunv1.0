@@ -8,7 +8,7 @@ Vue.use(Router);
 const routes = [
     {
         path: '/',
-        redirect: '/dashboard'
+        redirect: '/index'
     },
     {
         path: '/',
@@ -16,19 +16,34 @@ const routes = [
         meta: { title: '自述文件' },
         children:[
             {
-                path: 'dashboard',
+                path: 'index',
                 component: () => import('../components/page/Home.vue'),
                 meta: { title: '系统首页' }
             },
             {
-                path: '/system/admin',
+                path: '/admin',
                 component: () => import('../components/page/Admin.vue'),
-                meta: { title: '管理员' }
+                meta: { title: '账号管理' }
+            },
+            {
+                path: '/role',
+                component: () => import('../components/page/Role.vue'),
+                meta: { title: '角色管理' }
+            },
+            {
+                path: '/dept',
+                component: () => import('../components/page/Dept.vue'),
+                meta: { title: '部门管理' }
             },
             {
                 path: '/member/list',
                 component: () => import('../components/page/MemberList.vue'),
                 meta: { title: '会员列表' }
+            },
+            {
+                path: '/tabs',
+                component: () => import('../components/page/Tabs.vue'),
+                meta: { title: '消息中心' }
             },
         ]    
     },

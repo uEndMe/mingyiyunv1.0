@@ -5,6 +5,7 @@ import state from './vuex/state'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css'; // 默认主题
 import './assets/css/icon.css';
+import './assets/css/iconfont/iconfont.css';
 import './assets/css/common.css'
 import './components/common/directives';
 import "babel-polyfill";

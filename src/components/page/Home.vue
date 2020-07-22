@@ -2,7 +2,7 @@
     <div>
         <div class="crumbs">
             <el-breadcrumb separator="/">
-                <el-breadcrumb-item><i class="el-icon-user-solid"></i> 会员列表</el-breadcrumb-item>
+                <el-breadcrumb-item><i class="el-icon-s-home"></i> {{$route.meta.title}}</el-breadcrumb-item>
             </el-breadcrumb>
         </div>
         <div class="container">

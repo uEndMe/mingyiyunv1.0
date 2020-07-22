@@ -2,7 +2,7 @@
     <div class="table">
         <div class="crumbs">
             <el-breadcrumb separator="/">
-                <el-breadcrumb-item><i class="el-icon-zk-system"></i> {{$route.meta.title}}</el-breadcrumb-item>
+                <el-breadcrumb-item><i class="el-icon-zk-role"></i> {{$route.meta.title}}</el-breadcrumb-item>
             </el-breadcrumb>
         </div>
         <div class="container">
@@ -11,40 +11,19 @@
                 <el-button type="primary" icon="el-icon-plus" @click="handleCreate">添加</el-button>
             </div>
             <el-table border :data="list" class="table" ref="multipleTable" @selection-change="handleSelectionChange">
-                <el-table-column type="selection" width="40" align="center"></el-table-column>
-                <el-table-column prop="username" label="用户名" align="center" show-overflow-tooltip></el-table-column>
-                <el-table-column prop="name" label="姓名" align="center"></el-table-column>
-                <el-table-column prop="gender_text" label="性别" align="center" width="50"></el-table-column>
-                <el-table-column prop="phone" label="联系电话" align="center"></el-table-column>
-                <el-table-column prop="email" label="邮箱" align="center" show-overflow-tooltip></el-table-column>
-                <el-table-column prop="qq" label="QQ" align="center"></el-table-column>
-                <el-table-column prop="wechat" label="微信" align="center"></el-table-column>
-                <el-table-column prop="dept_name" label="部门名称" align="center"></el-table-column>
-                <el-table-column prop="position" label="职位" align="center"></el-table-column>
-                <el-table-column label="部门负责人" align="center" width="100">
-                    <template slot-scope="scope">
-                        {{scope.row.is_leader ? '是' : '否'}}
-                    </template>
-                </el-table-column>
-                <el-table-column prop="status" label="启用状态" align="center" width="100">
+                <el-table-column type="selection" width="55" align="center"></el-table-column>
+                <el-table-column prop="name" label="姓名名称" align="center"></el-table-column>
+                <el-table-column prop="status" label="启用状态" align="center">
                     <template slot-scope="scope">
                         <el-switch v-model="scope.row.status"
                          @change="changeStatus(scope.row)">
                         </el-switch>
                     </template>
                 </el-table-column>
-                <el-table-column prop="last_time" label="最近登录时间" align="center"></el-table-column>
-                <el-table-column label="账号创建时间" align="center" width="110">
+                <el-table-column label="操作" align="center">
                     <template slot-scope="scope">
-                        {{scope.row.add_time.slice(0,10)}}
-                    </template>
-                </el-table-column>
-                <el-table-column label="操作" align="center" width="130">
-                    <template slot-scope="scope">
-                    <div class="table-operation">
                         <el-button type="text" icon="el-icon-edit" @click="handleEdit(scope.row)">编辑</el-button>
                         <el-button type="text" icon="el-icon-delete" class="red" @click="handleDeleteClick(scope.row)">删除</el-button>
-                    </div>
                     </template>
                 </el-table-column>
             </el-table>
@@ -53,7 +32,7 @@
             <el-pagination
                 :page-size="list_params.limit"
                 layout="prev, pager, next, jumper, total"
-                :total="list_total"
+                :total="total"
                 @current-change="handleCurrentChange"
                 background
                 class="pagination">
@@ -61,9 +40,19 @@
         </div>
 
         <!-- 编辑弹出框 -->
-        <el-dialog title="账号编辑" :visible.sync="editVisible" width="50%">
-            <el-form ref="edit" label-width="120px" label-position="right">
-                <el-form-item label="姓名" :error="error_msg.name">
+        <!-- <el-dialog title="编辑管理员" :visible.sync="editVisible" width="50%">
+            <el-form ref="edit" label-width="120px" label-position="right"> -->
+                <!-- <el-form-item label="用户名" :error="error_msg.username">
+                    <el-input v-model="params.username" @focus="handleFocus('username')"></el-input>
+                </el-form-item> -->
+                <!-- <el-form-item label="密码" :error="error_msg.password">
+                    <el-input v-model="params.password"
+                        @focus="handleFocus('password')"
+                        type="password"
+                        show-password>
+                    </el-input>
+                </el-form-item> -->
+                <!-- <el-form-item label="姓名" :error="error_msg.name">
                     <el-input v-model="params.name" @focus="handleFocus('name')"></el-input>
                 </el-form-item>
                 <el-form-item label="性别">
@@ -117,10 +106,10 @@
                 <el-button @click="editVisible = false">取 消</el-button>
                 <el-button type="primary" @click="submitEditForm">确 定</el-button>
             </span>
-        </el-dialog>
+        </el-dialog> -->
 
         <!-- 创建管理员弹出框 -->
-        <el-dialog title="创建管理员" :visible.sync="createVisible" width="50%">
+        <!-- <el-dialog title="创建管理员" :visible.sync="createVisible" width="50%">
             <el-form ref="create" label-width="120px" label-position="right">
                 <el-form-item label="用户名" :error="error_msg.username">
                     <el-input v-model="params.username" @focus="handleFocus('username')"></el-input>
@@ -186,21 +175,18 @@
                 <el-button @click="createVisible = false">取 消</el-button>
                 <el-button type="primary" @click="submitCreateForm">确 定</el-button>
             </span>
-        </el-dialog>
+        </el-dialog> -->
     </div>
 </template>
 
 <script>
-import Admin from '../../api/admin';
-import { roleList } from '../../api/role';
-import { deptList } from '../../api/dept';
-import {md5} from '@/utils/util';
+import { roleList, roleAdd, roleUpdate, roleDel, roleStatus } from '../../api/role';
 export default {
     name: 'admin',
     data() {
         return {
             list: [],
-            list_total: 0,
+            total: 0,
             list_params: {
                 page: 1,
                 limit: 10
@@ -242,24 +228,25 @@ export default {
     },
     methods: {
         handleCreate () {
-            this.getRoleSelect();
-            this.getDeptSelect();
             this.createVisible = true;
             this.params = this.$options.data().params;
             this.error_msg = this.$options.data().error_msg;
         },
         handleEdit (row) {
-            this.getRoleSelect();
-            this.getDeptSelect();
+            console.log(row);
             this.editVisible = true;
-            this.params = Object.assign({}, row);
-            // console.log(this.dept_select);
+            this.params.nickname = row.nickname;
+            this.params.admin_id = row.admin_id;
+            if(this.params.password){
+                this.params.password = md5(this.params.password);
+            }
+            delete this.params.username;
             this.error_msg = this.$options.data().error_msg;
         },
         changeStatus (row) {
             let params = {
                 admin_id: parseInt(row.admin_id),
-                status: row.status ? 1 : 0
+                status: row.status
             }
             Admin.status(params)
         },
@@ -314,23 +301,10 @@ export default {
         },
         //点击编辑确认操作
         submitEditForm () {
-            let params = {
-                admin_id: parseInt(this.params.admin_id),
-                role_id: parseInt(this.params.role_id),
-                name: this.params.name,
-                gender: this.params.gender,
-                phone: this.params.phone,
-                email: this.params.email,
-                qq: this.params.qq,
-                wechat: this.params.wechat,
-                dept_id: parseInt(this.params.dept_id),
-                position: this.params.position,
-                is_leader: parseInt(this.params.is_leader),
-            };
-            if(!this.vailParams(params)) return
+            if(!this.vailParams(this.params, 1)) return
             Admin.update(this.params).then(res => {
                 if(res !== false){
-                    this.$message.success('账号修改成功');
+                    this.$message.success('编辑管理员成功');
                     this.getAdminList();
                     this.editVisible = false;
                 }
@@ -372,7 +346,6 @@ export default {
             }).then(() => {
                 this.handleDelete(row);
             })
-            .catch(() => {});
         },
         handleDelete (row) {
             Admin.del({admin_ids: row.admin_id?row.admin_id:this.admin_ids})
@@ -397,37 +370,20 @@ export default {
             this.list_params.page = val;
             this.getAdminList();
         },
-        getAdminList () {
-            Admin.list().then(res => {
-                // console.log(res.list);
-                this.list_total = res.count;
-                this.list = res.list;
-            })
-        },
         getRoleSelect () {
-            roleList().then(res => {
+            roleList(this.list_params).then((res) => {
+                // console.log(res.list);
                 if (res) {
-                    res.list.forEach((item) => {
-                        item.status = item.status ? true : false;
-                    })
-                    this.role_select = res.list;
+                    this.total = res.count;
+                    this.list = res.list;
                 }
-            })
-        },
-        getDeptSelect () {
-            deptList().then(res => {
-                if (res) {
-                    res.list.forEach((item) => {
-                        item.status = item.status ? true : false;
-                    })
-                    this.dept_select = res.list;
-                    // console.log(this.dept_select);
-                }
-            })
+            });
         },
     },
     created () {
-        this.getAdminList();
+
+        // 角色名称下拉列表
+        this.getRoleSelect();
     }
 }
 </script>
@@ -470,10 +426,7 @@ export default {
 .mr10{
     margin-right: 10px;
 }
-// .table-operation {
-//     display: flex;
-//     flex-wrap: wrap;
-//     justify-content: center;
-//     align-items: center;
+// .input-width {
+//     width: 100%;
 // }
 </style>

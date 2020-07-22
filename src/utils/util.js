@@ -27,3 +27,14 @@ export const makeSign = (arys) => {
 
     return md5.digest('hex');
 }
+
+// 验证手机号码
+export const rulePhone = (phone) => {
+    return /^1[3456789]\d{9}$/.test(phone);
+}
+
+// 验证邮箱
+export const ruleEmail = (email) => {
+    let reg = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;
+    return  reg.test(email);
+}

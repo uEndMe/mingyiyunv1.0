@@ -1,4 +1,7 @@
 
-    [class*=" el-icon-lx"], [class^=el-icon-lx] {
-        font-family: lx-iconfont!important;
-    }
+[class*=" el-icon-lx"], [class^=el-icon-lx] {
+    font-family: lx-iconfont!important;
+}
+[class*=" el-icon-zk"], [class^=el-icon-zk] {
+    font-family: iconfont!important;
+}

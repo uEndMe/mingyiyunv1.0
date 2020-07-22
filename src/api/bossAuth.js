@@ -19,7 +19,14 @@ export const logout = (query) => {
 // 修改密码
 export const password = (query) => {
     return request({
-        url: '/boss/boss/auth/password',
+        url: '/boss/boss/self/password',
+        data: (query || {})
+    })
+}
+// 修改个人信息
+export const updateUser = (query) => {
+    return request({
+        url: '/boss/boss/self/update',
         data: (query || {})
     })
 }

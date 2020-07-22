@@ -22,9 +22,9 @@
     max-width: 50%;
 }
 
-.el-dialog--center .el-dialog__body {
+/* .el-dialog--center .el-dialog__body {
     padding: 0;
-}
-.el-dialog--center .el-dialog__header {
+} */
+/* .el-dialog--center .el-dialog__header {
     display: none;
-}
+} */

@@ -6,7 +6,7 @@
         :collapse="collapse" 
         background-color="#324157"
         text-color="#bfcbd9" 
-        active-text-color="#20a0ff" 
+        active-text-color="#20a0ff"
         unique-opened>
             <template v-for="item of items">
                 <template v-if="item.subs">
@@ -41,9 +41,10 @@
                     </el-submenu>
                 </template>
                 <template v-else>
-                    <el-menu-item :index="item.index" :key="item.index">
+                    <el-menu-item :index="item.index" :key="item.index"
+                        @click="handleMenuClick(item.index)">
                         <i :class="item.icon"></i>
-                        <span slot="title" @click="handleMenuClick(item.index)">{{item.title}}</span>
+                        <span slot="title">{{item.title}}</span>
                     </el-menu-item>
                 </template>
             </template>
@@ -58,7 +59,28 @@
         data() {
             return {
                 collapse: false,
-                items: []
+                items: [
+                    {
+                        title: '系统首页',
+                        index: 'index',
+                        icon: 'el-icon-lx-home'
+                    },
+                    {
+                        title: '账号管理',
+                        index: 'admin',
+                        icon: 'el-icon-zk-system'
+                    },
+                    {
+                        title: '角色管理',
+                        index: 'role',
+                        icon: 'el-icon-zk-role'
+                    },
+                    {
+                        title: '部门管理',
+                        index: 'dept',
+                        icon: 'el-icon-zk-dept'
+                    },
+                ]
             }
         },
         methods:{
@@ -72,7 +94,7 @@
                 else{
                     this.$router.push('/'+url1)
                 }
-            }
+            },
         },
         computed:{
             onRoutes(){
@@ -91,24 +113,24 @@
             });
 
             let t = this;
-            let icons = [
-                'el-icon-lx-home',
-                'el-icon-lx-people',
-                'el-icon-lx-shop',
-                'el-icon-lx-like',
-                'el-icon-lx-question',
-                'el-icon-lx-recharge',
-                'el-icon-lx-hot',
-                'el-icon-lx-pic',
-                'el-icon-lx-goods',
-                'el-icon-lx-crown'
-            ]
+            // let icons = [
+            //     'el-icon-lx-home',
+            //     'el-icon-lx-people',
+            //     'el-icon-lx-shop',
+            //     'el-icon-lx-like',
+            //     'el-icon-lx-question',
+            //     'el-icon-lx-recharge',
+            //     'el-icon-lx-hot',
+            //     'el-icon-lx-pic',
+            //     'el-icon-lx-goods',
+            //     'el-icon-lx-crown'
+            // ]
             menu().then(function(res){
                 // console.log(res)
-                for(let i=0;i<res.menu.length;i++){
-                    res.menu[i].icon = icons[i];
-                }
-                t.items = res.menu;
+                // for(let i=0;i<res.menu.length;i++){
+                //     res.menu[i].icon = icons[i];
+                // }
+                // t.items = res.menu;
             });
         }
     }
