@@ -19,6 +19,11 @@ const routes = [
         name: 'home',
         component: Home,
     },
+    {
+        path: '/live',
+        name: 'live',
+        component: () => import('../views/LiveClass.vue'),
+    },
 ];
 
 const router = new VueRouter({

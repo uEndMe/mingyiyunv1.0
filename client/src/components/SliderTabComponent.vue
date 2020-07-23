@@ -1,7 +1,11 @@
 <template>
     <div class="slider-tab">
         <template v-for="(item, i) of data">
-            <div :key="i" class="slider-tab-item" @click="handleClick($event, i, item.path)">{{item.name}}</div>
+            <div :key="i"
+                :class="active === i ? 'slider-tab-item is-active' : 'slider-tab-item'"
+                @click="handleClick($event, i, item.path)">
+                {{item.name}}
+            </div>
         </template>
     </div>
 </template>
@@ -21,24 +25,32 @@ export default {
     methods: {
         handleClick (e, i, path) {
             if (i === this.active) {return;}
-            const V = Math.abs(i - this.active) >= 2;
             this.active = i;
             let parent = e.target.parentNode;
+            const viewWidth = document.body.clientWidth;
             let indexScroll = parent.scrollLeft; // 滚动条初始位置
-            let side = document.body.clientWidth * 0.4;
-            let tabWidth = document.body.clientWidth * 0.1667;
+            let tabWidth = viewWidth * 0.1667; // tab宽度
+            let side = viewWidth * 0.5; // 判定滚动方向的基准位置
             let isMove = e.clientX > side; // 滚动方向 true往左, false往右
             let distance = 0; // 滚动距离
-            if (V) {
+
+            // 根据屏幕上的点击位置判定需要滚动的距离
+            if (e.clientX <= (viewWidth * 0.25)) {
+                distance = tabWidth * 1;
+            } else if ((viewWidth * 0.25) < e.clientX && e.clientX <= (viewWidth * 0.5)) {
+                distance = 0;
+            } else if ((viewWidth * 0.5) < e.clientX && e.clientX <= (viewWidth * 0.625)) {
+                distance = tabWidth * 1;
+            } else if ((viewWidth * 0.625) < e.clientX && e.clientX <= (viewWidth * 0.75)) {
                 distance = tabWidth * 2;
             } else {
-                distance = tabWidth * 1;
+                distance = tabWidth * 3;
             }
             let timer = null;
             if (isMove) {
                 timer = setInterval(() => {
-                    parent.scrollLeft += 3;
-                    if ((parent.scrollLeft - indexScroll) >= distance || (parent.scrollLeft === document.body.clientWidth)) {
+                    parent.scrollLeft += 3; // 数值为滚动速度
+                    if ((parent.scrollLeft - indexScroll) >= distance || (parent.scrollLeft === viewWidth)) {
                         clearInterval(timer);
                     }
                 }, 0);
@@ -59,13 +71,37 @@ export default {
     width: 100%;
     display: flex;
     overflow: scroll;
-    position: relative;
+    font-size: 14px;
     .slider-tab-item {
         min-width: 16.67%;
-        height: 50px;
+        height: 40px;
         display: flex;
+        justify-content: center;
         align-items: flex-end;
         white-space: nowrap;
+    }
+    .is-active {
+        font-size: 20px;
+        font-weight: bold;
+        // animation: action infinite;
+        animation: action 0.2s;
+        -webkit-animation: action 0.2s;
+    }
+}
+@keyframes action
+{
+    from {font-size: 14px;}
+    to {
+        font-size: 20px;
+        font-weight: bold;
+    }
+}
+@-webkit-keyframes action
+{
+    from {font-size: 14px;}
+    to {
+        font-size: 20px;
+        font-weight: bold;
     }
 }
 </style>
