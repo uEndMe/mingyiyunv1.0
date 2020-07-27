@@ -2,7 +2,7 @@ const path = require('path');
 const CompressionWebpackPlugin = require('compression-webpack-plugin');
 
 const productionGzipExtensions = ['js', 'css'];
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
 // function resolve (dir) {
 //     return path.join(__dirname, './', dir);
@@ -48,17 +48,16 @@ module.exports = {
         );
         // 代码压缩
         config.plugins.push(
-            new UglifyJsPlugin({
-                uglifyOptions: {
-                    // 生产环境自动删除console
-                    compress: {
-                        drop_debugger: true,
-                        drop_console: true,
-                        pure_funcs: ['console.log'],
-                    },
-                },
-                sourceMap: false,
+            new TerserPlugin({
+                cache: true,
                 parallel: true,
+                sourceMap: true,
+                terserOptions: {
+                    compress: {
+                        drop_console: true,
+                        drop_debugger: true
+                    }
+                },
             }),
         );
     },

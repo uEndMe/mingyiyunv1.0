@@ -1,14 +1,14 @@
 <template>
-    <div class="the-wall product-box">
-        <div>
+    <div class="the-wall product-containal">
+        <div class="product-box">
             <van-image width="2.2rem" height="1.63rem"></van-image>
             <div class="product-info">
-                <div>{{data.title}}</div>
+                <div class="van-multi-ellipsis--l2">{{data.title}}</div>
                 <div>
                     <div>{{price}}</div>
-                    <div>{{original}}</div>
-                    <div>{{data.buyers}}人购买</div>
-                    <van-button size="mini">购买</van-button>
+                    <div class="gray-color through-line">{{original}}</div>
+                    <div class="gray-color">{{data.buyers}}人购买</div>
+                    <van-button style="width: 1.24rem;" size="mini">购买</van-button>
                 </div>
             </div>
         </div>
@@ -42,9 +42,9 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-.product-box {
-    font-size: 14px;
-    & > div {
+.product-containal {
+    .product-box {
+        font-size: 14px;
         display: flex;
         align-items: center;
         padding-top: 12px;
@@ -52,6 +52,7 @@ export default {
         border-bottom: 1px solid @main_gray;
         .product-info {
             height: 1.63rem;
+            width: 6.4267rem;
             margin-left: 10px;
             display: flex;
             flex-direction: column;
@@ -62,6 +63,17 @@ export default {
                 align-items: center;
             }
         }
+        .gray-color {
+            color: @main_gray;
+        }
     }
+    &:last-child {
+        .product-box {
+            border-bottom: none;
+        }
+    }
+}
+.through-line {
+    text-decoration: line-through;
 }
 </style>

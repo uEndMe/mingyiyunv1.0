@@ -8,9 +8,6 @@ import './icons';
 import './assets/global.less';
 import 'amfe-flexible';
 import c from './config/config';
-// import 'video.js/dist/video-js.css';
-// import 'vue-video-player/src/custom-theme.css';
-// import lang from './assets/lang/en';
 
 // Vue.prototype.$lang = lang;
 Vue.prototype.$c = c;
