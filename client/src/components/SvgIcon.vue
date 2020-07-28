@@ -36,7 +36,7 @@ export default {
 
 <style scoped>
 .clss {
-    height: 100%;
+    height: inherit;
     display: flex;
     align-items: center;
 }
