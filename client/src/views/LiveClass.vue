@@ -1,66 +1,68 @@
 <template>
     <div class="bg-gray">
-        <div ref="player" class="player">
-            <video ref="video" src="http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"
-                controls
-                width="100%">
-            </video>
-            <div ref="peo" class="peoples">
+        <div id="player" ref="player" class="player">
+            <!-- <div ref="peo" class="peoples">
                 <div></div>
                 <div>2119人正在看</div>
+            </div> -->
+        </div>
+        <div ref="chat">
+            <div ref="liveTitle" class="live-title">
+                <div>直播</div>
+                <div>深圳市南山xx医院xxx教授临床学术讲座</div>
             </div>
-        </div>
-        <div ref="liveTitle" class="live-title">
-            <div>直播</div>
-            <div>深圳市南山xx医院xxx教授临床学术讲座</div>
-        </div>
-        <div>
-            <van-tabs v-model="tabActive"
-                @rendered="handleRendered"
-                :border="false">
-                <van-tab title="课程介绍">
-                    <div ref="ditch" style="height: 0.26667rem;"></div>
-                    <div ref="info" class="the-wall">
-                        <van-card ref="follow">
-                            <van-image slot="thumb" width="1.1rem" height="1.1rem" round
-                                src="https://img.yzcdn.cn/vant/cat.jpeg">
-                            </van-image>
-                            <div slot="title" class="live-info-title">xxx教授</div>
-                            <div slot="desc" class="live-info-desc">深圳市宝安xxx机构医师</div>
-                            <div slot="footer">
-                                <van-button round size="small">关注</van-button>
-                            </div>
-                        </van-card>
-                        <div ref="introduce" class="scroll-region"></div>
-                    </div>
-                </van-tab>
-                <van-tab title="听课聊天室">
-                    <div ref="admin">
-                        <im-Admin :data="admin"></im-Admin>
-                    </div>
-                    <div ref="member">
-                        <im-member :data="member"></im-member>
-                    </div>
-                    <im-field ref="input"></im-field>
-                </van-tab>
-                <van-tab title="产品橱窗">
-                    <div ref="ditch" style="height: 0.26667rem;"></div>
-                    <div ref="product" class="scroll-region">
-                        <template v-for="(item, i) of products">
-                            <product :key="i" :data="item"></product>
-                        </template>
-                    </div>
-                </van-tab>
-            </van-tabs>
+            <div>
+                <van-tabs v-model="tabActive"
+                    @rendered="handleRendered"
+                    :border="false">
+                    <van-tab title="课程介绍">
+                        <div ref="ditch" style="height: 0.26667rem;"></div>
+                        <div ref="info" class="the-wall">
+                            <van-card ref="follow">
+                                <van-image slot="thumb" width="1.1rem" height="1.1rem" round
+                                    src="https://img.yzcdn.cn/vant/cat.jpeg">
+                                </van-image>
+                                <div slot="title" class="live-info-title">xxx教授</div>
+                                <div slot="desc" class="live-info-desc">深圳市宝安xxx机构医师</div>
+                                <div slot="footer">
+                                    <van-button round size="small">关注</van-button>
+                                </div>
+                            </van-card>
+                            <div ref="introduce" class="scroll-region"></div>
+                        </div>
+                    </van-tab>
+                    <van-tab title="听课聊天室">
+                        <div ref="admin">
+                            <im-Admin :data="admin"></im-Admin>
+                        </div>
+                        <div ref="member">
+                            <im-member :data="currentMessageList"></im-member>
+                        </div>
+                        <im-field ref="input" :send-message="onSendMessage"></im-field>
+                    </van-tab>
+                    <van-tab title="产品橱窗">
+                        <div ref="ditch" style="height: 0.26667rem;"></div>
+                        <div ref="product" class="scroll-region">
+                            <template v-for="(item, i) of products">
+                                <product :key="i" :data="item"></product>
+                            </template>
+                        </div>
+                    </van-tab>
+                </van-tabs>
+            </div>
         </div>
     </div>
 </template>
 <script>
+import Vue from 'vue';
+import { mapState } from 'vuex'
 import product from '@/components/ProductComponent.vue';
 import ImAdmin from '@/components/IMAdminComponent.vue';
 import ImMember from '@/components/IMMemberComponent.vue';
 import ImField from '@/components/IMInputComponent.vue';
 import { Tab, Tabs, Image as VanImage, Card, Button } from 'vant';
+import { getUrlKey,isValidFlv } from '@/utils/common';
+import TWebLive from 'tweblive';
 export default {
     components: {
         product,
@@ -72,6 +74,12 @@ export default {
         [VanImage.name]: VanImage,
         [Card.name]: Card,
         [Button.name]: Button,
+    },
+    computed: {
+        ...mapState({
+            currentMessageList: (state) => state.IM.currentMessageList,
+            userInfo: (state) => state.IM.userInfo,
+        }),
     },
     data () {
         return {
@@ -91,21 +99,123 @@ export default {
                 { id: 4, path: 'https://img.yzcdn.cn/vant/cat.jpeg', title: '嘉宾' },
                 { id: 5, path: 'https://img.yzcdn.cn/vant/cat.jpeg', title: '嘉宾' },
             ],
-            member: [
-                { id: 1, path: 'https://img.yzcdn.cn/vant/cat.jpeg', name: 'xxx教授', type: '主持人', text: 'xx教授首先通过示意图、小视频等生动形象地和大家介绍了新一代的高通量测序技术', isSelf: false },
-                { id: 2, path: 'https://img.yzcdn.cn/vant/cat.jpeg', name: 'xxx教授', type: '主持人', text: 'xx教授首先通过示意图、小视频等生动形象地和大家介绍了新一代的高通量测序技术', isSelf: false },
-                { id: 3, path: 'https://img.yzcdn.cn/vant/cat.jpeg', name: 'xxx教授', type: '', text: '作为世界首创“头针”创始人焦顺发的传承人，继承“头针”学术精髓', isSelf: true },
-                { id: 4, path: 'https://img.yzcdn.cn/vant/cat.jpeg', name: 'xxx教授', type: '', text: '作为世界首创', isSelf: false },
-            ],
-            test: 0,
+            options: {
+                flv: 'https://3891.liveplay.myqcloud.com/live/yqtest.flv',
+                m3u8: 'https://3891.liveplay.myqcloud.com/live/yqtest.m3u8',
+                autoplay: true,
+                x5_type:'h5',
+                width: '100%',
+                height: '200',
+                poster: {style:'cover', src:require('@/assets/images/video-bg.png')},
+                pausePosterEnabled: false,
+                wording: {
+                    1:'主播不在，先在直播间聊聊天吧~ ',
+                    2:'主播不在，先在直播间聊聊天吧~ ',
+                    4:'主播不在，先在直播间聊聊天吧~ ',
+                    13:'您观看的直播已结束',
+                    2032: '请求视频失败，请检查网络',
+                    2048: '请求m3u8文件失败，可能是网络错误或者跨域问题'
+                },
+            },
+            tweblive: null,
         };
     },
+    created() {
+        console.log(this.currentMessageList);
+        let url = window.location.href
+        let roomId  = getUrlKey('roomid',url);
+        if(roomId) {
+            this.$store.commit('setGroupId',roomId);
+        }
+        let flv = getUrlKey('flv',url)
+        if(flv && isValidFlv(flv)) {
+            let m3u8 = flv.replace('flv','m3u8')
+            this.options.flv = flv
+            this.options.m3u8 = m3u8
+        }
+    },
     mounted () {
-        window.setTimeout(() => {
-            this.$refs.player.style.height = `${this.$refs.video.offsetHeight}px`;
-        }, 100);
+        // 初始化监听器
+        this.$nextTick(() => {
+            const videoHeight = document.getElementById('player').clientHeight;
+            let height = document.documentElement.clientHeight;
+            if(videoHeight < height / 2) { //超过一半高度
+                this.$refs.chat.style.height = height - videoHeight  + 'px';
+            } else {
+                this.$refs.chat.style.height = height - videoHeight  + 'px';
+            }
+        });
+        this.initListener();
     },
     methods: {
+        initListener () {
+            const tweblive = new TWebLive({
+                SDKAppID: 1400406517,
+                domID: 'player',
+                ...this.options
+            });
+            this.tweblive = tweblive;
+            Vue.prototype.tweblive = tweblive;
+            Vue.prototype.TWebLive = TWebLive;
+            this.enterRoom()
+
+            // // 登录成功后会触发 SDK_READY 事件，该事件触发后，可正常使用 SDK 接口
+            this.tweblive.on(this.TWebLive.EVENT.IM_READY, () => {
+                console.log(this.TWebLive.EVENT.IM_READY);
+            });
+            // // 被踢出
+            // this.tweblive.on(this.TWebLive.EVENT.KICKED_OUT, this.onKickedOut)
+            // // SDK内部出错
+            // this.tweblive.on(this.TWebLive.EVENT.ERROR, this.onError)
+            // // 收到自定义新消息
+            // this.tweblive.on(this.TWebLive.EVENT.CUSTOM_MESSAGE_RECEIVED, this.onCustomMessageReceived)
+            // // 收到文本新消息
+            this.tweblive.on(this.TWebLive.EVENT.TEXT_MESSAGE_RECEIVED, ({data: messageList}) => {
+                messageList.forEach((item) => {
+                    const userName = item.nick || item.from;
+                    const avatar = item.avatar || this.userInfo.defaultImg;
+                    item.nick = userName;
+                    item.avatar = avatar;
+                });
+                this.$store.commit('IM/pushCurrentMessageList', messageList);
+                console.log(messageList);
+            });
+            // // 加入直播间
+            // this.tweblive.on(this.TWebLive.EVENT.REMOTE_USER_JOIN, this.onRemoteUserJoin)
+            // // 离开直播间
+            // this.tweblive.on(this.TWebLive.EVENT.REMOTE_USER_LEAVE, this.onRemoteUserLeave)
+            // // 网络监测enterRoom
+            // this.tweblive.on(this.TWebLive.EVENT.NET_STATE_CHANGE, this.onNetStateChange)
+            // // 推流结束
+            // this.tweblive.on(this.TWebLive.EVENT.ENDED, this.onLiveEnd);
+
+            // 调用TIM SDK 登录接口
+            this.tweblive.login({
+                userID: 'demo01',
+                userSig: 'eJyrVgrxCdYrSy1SslIy0jNQ0gHzM1NS80oy0zLBwimpufkGhlCZ4pTsxIKCzBQlK0MTAwMTAzNTQ3OITGpFQWZRKlDc1NTUyMDAACJakpkLFrM0MzA0Nbc0hpqSmQ402MXROKw42NjAOzHAtdCosDIyykM7Ksgl0DwtN9LIxTvNOcktpdArwivVO9JWqRYAGNEwtA__',
+            })
+                .then(() => {
+                    console.log('登录成功');
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        },
+        // 加入直播间
+        enterRoom() {
+            this.tweblive.enterRoom('@TGS#aIQX23TGC').then(() => {
+            this.isJoined = true
+            })
+            .catch((imError) => {
+                console.log(imError);
+                if(imError.code === 10007 || imError.code === 10015) {
+                    this.$toast.fail('你加入的直播间不存在哦~')
+                }
+            });
+        },
+        onSendMessage () {
+            console.log(123);
+        },
         countHeihgt1 () {
             let part1 = this.$refs.player.offsetHeight;
             let part2 = this.$refs.liveTitle.offsetHeight;
@@ -175,6 +285,14 @@ export default {
         font-size: 11px;
         color: #999999;
     }
+}
+/deep/ .vcp-error-tips {
+    font-size: 15px;
+    color: #fff;
+    margin-top: -4.25em;
+}
+/deep/ .van-tabs {
+    position: unset;
 }
 
 .player {

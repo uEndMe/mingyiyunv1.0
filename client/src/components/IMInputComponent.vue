@@ -1,12 +1,13 @@
 <template>
     <div class="input-field">
-        <van-field v-model="field"
+        <van-field v-model="messageContent"
             center
+            placeholder="说点什么吧~"
             size="large">
-            <van-icon slot="left-icon" name="comment-o" size="0.53333rem" color="#969799"></van-icon>
+            <van-icon slot="left-icon" name="smile-o" size="0.7rem" color="#969799"></van-icon>
             <div slot="right-icon" class="right-icon">
-                <svg-icon icon-name="发送"></svg-icon>
-                <van-icon name="after-sale" size="0.53333rem"></van-icon>
+                <van-icon name="chat-o" size="0.7rem" @click="sendMessage"></van-icon>
+                <van-icon name="after-sale" size="0.7rem"></van-icon>
             </div>
         </van-field>
     </div>
@@ -20,8 +21,47 @@ export default {
     },
     data () {
         return {
-            field: '',
+            messageContent: '',
         };
+    },
+    computed: {
+        userInfo () {
+            return this.$store.state.IM.userInfo;
+        },
+    },
+    methods: {
+        sendMessage () {
+            window.scroll(0, 0)    //ios键盘回落
+            if (this.messageContent === '' || this.messageContent.trim().length === 0) {
+                this.messageContent = ''
+                this.$toast('不能发送空消息哦！');
+                return
+            }
+            let message = {
+                payload:{
+                    text: this.messageContent,
+                },
+                nick: this.userInfo.nick,
+                avatar: this.userInfo.avatar,
+                type: '',
+                time: Date.now() / 1000,
+            };
+
+            this.$store.commit('IM/pushCurrentMessageList', message);
+            this.tweblive.sendTextMessage({
+                roomID: '@TGS#aIQX23TGC',
+                priority: this.TWebLive.TYPES.MSG_PRIORITY_NORMAL,
+                text: this.messageContent
+            })
+                .catch((error) => {
+                    message.status = 'fail'
+                    //JSON.stringify(error, ['message', 'code'])
+                    if (error.code ===80001) {
+                        this.$toast('文本中可能包含敏感词汇');
+                    }
+                })
+            this.messageContent = '';
+        },
     },
 };
 </script>
@@ -29,13 +69,14 @@ export default {
 .input-field {
     width: 100%;
     position: absolute;
+    bottom: 0;
     border-top: 1px solid @main_gray;
     /deep/ .van-field__control {
         border: 1px solid @main_gray;
         border-radius: 16px;
         box-sizing: border-box;
-        padding-left: 5px;
-        width: 70vw;
+        padding-left: 8px;
+        width: 65vw;
         height: 32px;
     }
     /deep/ .van-cell--large {
@@ -48,6 +89,9 @@ export default {
         font-size: 20px;
         /deep/ .clss {
             margin-right: 10px;
+        }
+        /deep/ .van-icon:not(:last-child) {
+            margin-right: 5px;
         }
     }
 }
