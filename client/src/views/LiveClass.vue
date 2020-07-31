@@ -51,6 +51,7 @@
                 </van-tabs>
             </div>
         </div>
+        <!-- <im-field ref="input" :send-message="onSendMessage"></im-field> -->
     </div>
 </template>
 <script>
@@ -118,10 +119,11 @@ export default {
                 },
             },
             tweblive: null,
+            showInput: false,
         };
     },
     created() {
-        console.log(this.currentMessageList);
+        // console.log(this.currentMessageList);
         let url = window.location.href
         let roomId  = getUrlKey('roomid',url);
         if(roomId) {
@@ -138,7 +140,7 @@ export default {
         // 初始化监听器
         this.$nextTick(() => {
             const videoHeight = document.getElementById('player').clientHeight;
-            let height = document.documentElement.clientHeight;
+            let height = document.documentElement.clientHeight || document.body.clientHeight;
             if(videoHeight < height / 2) { //超过一半高度
                 this.$refs.chat.style.height = height - videoHeight  + 'px';
             } else {
@@ -161,7 +163,7 @@ export default {
 
             // // 登录成功后会触发 SDK_READY 事件，该事件触发后，可正常使用 SDK 接口
             this.tweblive.on(this.TWebLive.EVENT.IM_READY, () => {
-                console.log(this.TWebLive.EVENT.IM_READY);
+                // console.log(this.TWebLive.EVENT.IM_READY);
             });
             // // 被踢出
             // this.tweblive.on(this.TWebLive.EVENT.KICKED_OUT, this.onKickedOut)
@@ -292,7 +294,7 @@ export default {
     margin-top: -4.25em;
 }
 /deep/ .van-tabs {
-    position: unset;
+    position: static;
 }
 
 .player {
@@ -348,5 +350,12 @@ export default {
     &::-webkit-scrollbar {
         display: none;
     }
+}
+.input-box {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
 }
 </style>

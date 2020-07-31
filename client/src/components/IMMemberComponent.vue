@@ -1,7 +1,7 @@
 <template>
     <div style="height: 100%;">
-        <div class="talk-box the-wall" ref="message-list"   @scroll="this.onScroll">
-            <template v-for="(item, i) of data">
+        <div class="talk-box the-wall" ref="message-list" @scroll="this.onScroll">
+            <template v-for="(item, i) of dataFilter">
                 <div :key="i">
                     <div class="first-div">
                         <van-image round
@@ -12,7 +12,18 @@
                     </div>
                     <div class="second-div">
                         <div class="talk-who">{{item.nick}}</div>
-                        <div ref="talk" class="talk-about">{{item.payload.text}}</div>
+                        <div ref="talk" class="talk-about">
+                            <template v-for="(msg, index) of item.payloadText">
+                                <span :key="index" v-if="msg.name === 'text'">{{msg.text}}</span>
+                                <van-image
+                                    v-else-if="msg.name === 'img'"
+                                    :key="index"
+                                    :src="msg.src"
+                                    width="20px" height="20px">
+                                </van-image>
+                            </template>
+                        </div>
+                        <!-- <div ref="talk" class="talk-about">{{item.payload.text}}</div> -->
                     </div>
                 </div>
                 <!-- <div v-else :key="i" class="talk-item2">
@@ -39,7 +50,8 @@
     </div>
 </template>
 <script>
-import { image as VanImage, Icon } from 'vant';
+import { decodeText } from '../utils/decodeText';
+import { Image as VanImage, Icon } from 'vant';
 export default {
     components: {
         [VanImage.name]: VanImage,
@@ -51,29 +63,35 @@ export default {
             default: () => [],
         },
     },
+    computed: {
+        dataFilter () {
+            return this.data.filter((item) => {
+                item.payloadText = decodeText(item.payload.text);
+                return item;
+            });
+        },
+    },
     data () {
         return {
             preScrollHeight: 0,
             isShowScrollButtomTips: false,
         };
     },
+    mounted () {
+        this.$nextTick(() => {
+            this.setTalkAboutStyle();
+        });
+    },
     updated () {
         this.keepMessageListOnButtom();
         this.$nextTick(() => {
-            let talks = document.getElementsByClassName('talk-about');
-            talks.forEach((item) => {
-                if (item.offsetWidth < 190) {
-                    item.style.textAlign = 'center';
-                }
-            });
+            this.setTalkAboutStyle();
         });
     },
     methods: {
         onScroll ({ target: { scrollTop } }) {
             let messageListNode = this.$refs['message-list'];
-                if (!messageListNode) {
-                return;
-            }
+            if (!messageListNode) {return;}
             if (this.preScrollHeight - messageListNode.clientHeight - scrollTop < 20) {
                 this.isShowScrollButtomTips = false;
             }
@@ -100,6 +118,14 @@ export default {
             let messageListNode = this.$refs['message-list'];
             messageListNode.scroll(0, this.preScrollHeight);
             this.isShowScrollButtomTips = false;
+        },
+        setTalkAboutStyle () {
+            let talks = document.getElementsByClassName('talk-about');
+            talks.forEach((item) => {
+                if (item.offsetWidth < 190) {
+                    item.style.textAlign = 'center';
+                }
+            });
         },
     },
 };
@@ -145,7 +171,7 @@ export default {
         max-width: 190Px;
         box-sizing: border-box;
         font-size: 12px;
-        padding: 6px;
+        padding: 5px;
         border-radius: 16px;
         background-color: #ffffff;
         border: 1px solid @main_gray;
