@@ -2,7 +2,7 @@
     <div style="height: 100%;">
         <div class="talk-box the-wall" ref="message-list" @scroll="this.onScroll">
             <template v-for="(item, i) of dataFilter">
-                <div :key="i">
+                <div v-if="!item.self" :key="i">
                     <div class="first-div">
                         <van-image round
                             :src="item.avatar"
@@ -12,33 +12,38 @@
                     </div>
                     <div class="second-div">
                         <div class="talk-who">{{item.nick}}</div>
-                        <div ref="talk" class="talk-about">
+                        <div class="talk-about">
                             <template v-for="(msg, index) of item.payloadText">
                                 <span :key="index" v-if="msg.name === 'text'">{{msg.text}}</span>
-                                <van-image
-                                    v-else-if="msg.name === 'img'"
+                                <img v-else-if="msg.name === 'img'"
                                     :key="index"
                                     :src="msg.src"
-                                    width="20px" height="20px">
-                                </van-image>
+                                    width="20px" height="20px" alt="" />
                             </template>
                         </div>
-                        <!-- <div ref="talk" class="talk-about">{{item.payload.text}}</div> -->
                     </div>
                 </div>
-                <!-- <div v-else :key="i" class="talk-item2">
+                <div v-else :key="i" class="talk-item2">
                     <div class="first-div">
-                        <div class="talk-who">{{item.name}}</div>
-                        <div class="talk-about" style="background-color: #67C23A">{{item.text}}</div>
+                        <div class="talk-who">{{item.nick}}</div>
+                        <div class="talk-about" style="background-color: #67C23A">
+                            <template v-for="(msg, index) of item.payloadText">
+                                <span :key="index" v-if="msg.name === 'text'">{{msg.text}}</span>
+                                <img v-else-if="msg.name === 'img'"
+                                    :key="index"
+                                    :src="msg.src"
+                                    width="20px" height="20px" alt="" />
+                            </template>
+                        </div>
                     </div>
                     <div class="second-div">
                         <van-image round
-                            :src="item.path"
+                            :src="item.avatar"
                             width="1.12rem"
                             height="1.12rem">
                         </van-image>
                     </div>
-                </div> -->
+                </div>
             </template>
             <div v-show="isShowScrollButtomTips" class="more-msg" @click="scrollBottom">
                 <div>
@@ -177,6 +182,7 @@ export default {
         border: 1px solid @main_gray;
         margin-top: 5px;
         text-align: justify;
+        vertical-align: middle;
     }
 }
 </style>
