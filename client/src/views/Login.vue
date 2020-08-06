@@ -2,8 +2,8 @@
     <div>
         <div class="bg-gray">
             <div class="login-field">
-                <van-field v-model="username" :placeholder="$lang.login.field_uname_placeholder"></van-field>
-                <van-field v-model="password" :placeholder="$lang.login.field_pwd_placeholder"></van-field>
+                <van-field v-model="username" placeholder="用户名"></van-field>
+                <van-field v-model="password" type="password" placeholder="密码"></van-field>
             </div>
             <div class="the-wall">
                 <van-button type="info"
@@ -51,10 +51,14 @@ export default {
             this.btnLoading = true;
             login(this.params)
                 .then((res) => {
+                    // console.log(res);
                     this.$toast.success('Login successful!');
                     this.btnLoading = false;
-                    sessionStorage.setItem(this.$c.tokenKey, res.data.token);
-                    this.$router.replace('/');
+                    window.sessionStorage.setItem(this.$c.tokenKey, res.data.token);
+                    window.sessionStorage.setItem(this.$c.userSigKey, res.data.user_sig);
+                    window.sessionStorage.setItem(this.$c.userIdKey, res.data.im_user_id);
+                    // this.$store.commit('IM/setUserInfo', res.data);
+                    this.$router.replace('/live');
                 })
                 .catch(() => {
                     this.btnLoading = false;

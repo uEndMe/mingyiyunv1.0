@@ -37,7 +37,10 @@ service.interceptors.request.use( config => {
 // ['success', 'warning', 'info', 'error']
 service.interceptors.response.use(response => {
     if(response.status === 200 && response.data instanceof Object){
-        if(response.data.error_code == 0) return response.data.data;
+        if(response.data.error_code == 0) {
+            if (response.data.data === null) {return true;}
+            return response.data.data
+        };
 
         message.error(response.data.error_msg)
         if(response.data.error_code == 10000){

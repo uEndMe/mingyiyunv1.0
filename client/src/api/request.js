@@ -2,7 +2,7 @@ import request from '../config/request';
 
 // 文件上传
 export const upload = (query) => request({
-    url: '/system/webservice/file/upload',
+    url: '/system/common/file/upload',
     method: 'post',
     data: (query || {}),
     timeout: 30000,

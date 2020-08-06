@@ -38,7 +38,7 @@
                         <div ref="member">
                             <im-member :data="currentMessageList"></im-member>
                         </div>
-                        <im-field ref="input" :send-message="onSendMessage"></im-field>
+                        <im-field ref="input"></im-field>
                     </van-tab>
                     <van-tab title="产品橱窗">
                         <div ref="ditch" style="height: 0.26667rem;"></div>
@@ -51,18 +51,17 @@
                 </van-tabs>
             </div>
         </div>
-        <!-- <im-field ref="input" :send-message="onSendMessage"></im-field> -->
     </div>
 </template>
 <script>
 import Vue from 'vue';
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex';
 import product from '@/components/ProductComponent.vue';
 import ImAdmin from '@/components/IMAdminComponent.vue';
 import ImMember from '@/components/IMMemberComponent.vue';
 import ImField from '@/components/IMInputComponent.vue';
 import { Tab, Tabs, Image as VanImage, Card, Button } from 'vant';
-import { getUrlKey,isValidFlv } from '@/utils/common';
+import { getUrlKey, isValidFlv } from '@/utils/common';
 import TWebLive from 'tweblive';
 export default {
     components: {
@@ -78,8 +77,10 @@ export default {
     },
     computed: {
         ...mapState({
-            currentMessageList: (state) => state.IM.currentMessageList,
             userInfo: (state) => state.IM.userInfo,
+        }),
+        ...mapGetters({
+            currentMessageList: 'IM/currentMessageList',
         }),
     },
     data () {
@@ -104,36 +105,41 @@ export default {
                 flv: 'https://3891.liveplay.myqcloud.com/live/yqtest.flv',
                 m3u8: 'https://3891.liveplay.myqcloud.com/live/yqtest.m3u8',
                 autoplay: true,
-                x5_type:'h5',
+                x5_type: 'h5',
                 width: '100%',
                 height: '200',
-                poster: {style:'cover', src:require('@/assets/images/video-bg.png')},
+                poster: {style: 'cover', src: require('@/assets/images/video-bg.png')},
                 pausePosterEnabled: false,
                 wording: {
-                    1:'主播不在，先在直播间聊聊天吧~ ',
-                    2:'主播不在，先在直播间聊聊天吧~ ',
-                    4:'主播不在，先在直播间聊聊天吧~ ',
-                    13:'您观看的直播已结束',
+                    1: '主播不在，先在直播间聊聊天吧~ ',
+                    2: '主播不在，先在直播间聊聊天吧~ ',
+                    4: '主播不在，先在直播间聊聊天吧~ ',
+                    13: '您观看的直播已结束',
                     2032: '请求视频失败，请检查网络',
-                    2048: '请求m3u8文件失败，可能是网络错误或者跨域问题'
+                    2048: '请求m3u8文件失败，可能是网络错误或者跨域问题',
                 },
             },
             tweblive: null,
-            showInput: false,
         };
     },
-    created() {
-        // console.log(this.currentMessageList);
-        let url = window.location.href
-        let roomId  = getUrlKey('roomid',url);
-        if(roomId) {
-            this.$store.commit('setGroupId',roomId);
+    beforeRouteEnter (to, from, next) {
+        // console.log(getUrlKey);
+        next((vm) => {
+            // console.log(1);
+        });
+    },
+    created () {
+        // console.log(2);
+        let url = window.location.href;
+        let roomId = getUrlKey('roomid', url);
+        if (roomId) {
+            this.$store.commit('setGroupId', roomId);
         }
-        let flv = getUrlKey('flv',url)
-        if(flv && isValidFlv(flv)) {
-            let m3u8 = flv.replace('flv','m3u8')
-            this.options.flv = flv
-            this.options.m3u8 = m3u8
+        let flv = getUrlKey('flv', url);
+        if (flv && isValidFlv(flv)) {
+            let m3u8 = flv.replace('flv', 'm3u8');
+            this.options.flv = flv;
+            this.options.m3u8 = m3u8;
         }
     },
     mounted () {
@@ -141,10 +147,10 @@ export default {
         this.$nextTick(() => {
             const videoHeight = document.getElementById('player').clientHeight;
             let height = document.documentElement.clientHeight || document.body.clientHeight;
-            if(videoHeight < height / 2) { //超过一半高度
-                this.$refs.chat.style.height = height - videoHeight  + 'px';
+            if (videoHeight < height / 2) { // 超过一半高度
+                this.$refs.chat.style.height = height - videoHeight + 'px';
             } else {
-                this.$refs.chat.style.height = height - videoHeight  + 'px';
+                this.$refs.chat.style.height = height - videoHeight + 'px';
             }
         });
         this.initListener();
@@ -152,14 +158,14 @@ export default {
     methods: {
         initListener () {
             const tweblive = new TWebLive({
-                SDKAppID: 1400406517,
+                SDKAppID: 1400402050,
                 domID: 'player',
-                ...this.options
+                ...this.options,
             });
             this.tweblive = tweblive;
             Vue.prototype.tweblive = tweblive;
             Vue.prototype.TWebLive = TWebLive;
-            this.enterRoom()
+            this.enterRoom();
 
             // // 登录成功后会触发 SDK_READY 事件，该事件触发后，可正常使用 SDK 接口
             this.tweblive.on(this.TWebLive.EVENT.IM_READY, () => {
@@ -180,7 +186,7 @@ export default {
                     item.avatar = avatar;
                 });
                 this.$store.commit('IM/pushCurrentMessageList', messageList);
-                console.log(messageList);
+                // console.log(messageList);
             });
             // // 加入直播间
             // this.tweblive.on(this.TWebLive.EVENT.REMOTE_USER_JOIN, this.onRemoteUserJoin)
@@ -190,11 +196,10 @@ export default {
             // this.tweblive.on(this.TWebLive.EVENT.NET_STATE_CHANGE, this.onNetStateChange)
             // // 推流结束
             // this.tweblive.on(this.TWebLive.EVENT.ENDED, this.onLiveEnd);
-
             // 调用TIM SDK 登录接口
             this.tweblive.login({
-                userID: 'demo01',
-                userSig: 'eJyrVgrxCdYrSy1SslIy0jNQ0gHzM1NS80oy0zLBwimpufkGhlCZ4pTsxIKCzBQlK0MTAwMTAzNTQ3OITGpFQWZRKlDc1NTUyMDAACJakpkLFrM0MzA0Nbc0hpqSmQ402MXROKw42NjAOzHAtdCosDIyykM7Ksgl0DwtN9LIxTvNOcktpdArwivVO9JWqRYAGNEwtA__',
+                userID: window.sessionStorage.getItem(this.$c.userIdKey),
+                userSig: window.sessionStorage.getItem(this.$c.userSigKey),
             })
                 .then(() => {
                     console.log('登录成功');
@@ -204,19 +209,16 @@ export default {
                 });
         },
         // 加入直播间
-        enterRoom() {
-            this.tweblive.enterRoom('@TGS#aIQX23TGC').then(() => {
-            this.isJoined = true
+        enterRoom () {
+            this.tweblive.enterRoom('@TGS#a7QBYHUGX').then(() => {
+                this.isJoined = true;
             })
-            .catch((imError) => {
-                console.log(imError);
-                if(imError.code === 10007 || imError.code === 10015) {
-                    this.$toast.fail('你加入的直播间不存在哦~')
-                }
-            });
-        },
-        onSendMessage () {
-            console.log(123);
+                .catch((imError) => {
+                    console.log(imError);
+                    if (imError.code === 10007 || imError.code === 10015) {
+                        this.$toast.fail('你加入的直播间不存在哦~');
+                    }
+                });
         },
         countHeihgt1 () {
             let part1 = this.$refs.player.offsetHeight;

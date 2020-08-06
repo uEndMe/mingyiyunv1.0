@@ -12,10 +12,11 @@
         </div>
         <van-field v-model="messageContent"
             center
+            :border="false"
             ref="input"
             placeholder="说点什么吧~"
             size="large"
-            @keyup.enter="sendMessage"
+            @keyup.enter="sendMessageClick"
             @focus="handleFocus">
             <van-icon slot="left-icon"
                 name="smile-o"
@@ -24,7 +25,7 @@
                 @click.stop="handleSelectEmoji">
             </van-icon>
             <div slot="right-icon" class="right-icon">
-                <van-icon v-if="messageContent" name="chat-o" size="0.7rem" @click="sendMessage"></van-icon>
+                <van-icon v-if="messageContent" name="chat-o" size="0.7rem" @click="sendMessageClick(false)"></van-icon>
                 <van-icon v-else name="add-o" size="0.7rem" @click.stop="testClick"></van-icon>
                 <van-icon name="after-sale" size="0.7rem"></van-icon>
             </div>
@@ -33,7 +34,9 @@
         <div v-show="showTabs" class="select">
             <div class="select-item">
                 <div>
-                    <van-uploader>
+                    <van-uploader
+                        :disabled="disableUpload"
+                        :after-read="afterRead">
                         <div class="select-item__item">
                             <van-icon name="photo-o" size="0.8rem" color="#969799"></van-icon>图片
                         </div>
@@ -45,8 +48,12 @@
     </div>
 </template>
 <script>
+import Vue from 'vue';
+import { mapState, mapGetters } from 'vuex';
 import { Field, Image as VanImage, Icon, Uploader } from 'vant';
 import { emojiMap, emojiName, emojiUrl } from '../utils/emojiMap';
+import { upload } from '../api/request';
+import Compressor from 'compressorjs';
 export default {
     components: {
         [Field.name]: Field,
@@ -62,12 +69,21 @@ export default {
             emojiUrl,
             showEmoji: false,
             showTabs: false,
+            disableUpload: false,
+            operation: {
+                _length: 0,
+                loading: false,
+                isDone: false,
+            },
         };
     },
     computed: {
-        userInfo () {
-            return this.$store.state.IM.userInfo;
-        },
+        ...mapState({
+            userInfo: (state) => state.IM.userInfo,
+        }),
+        ...mapGetters({
+            currentMessageList: 'IM/currentMessageList',
+        }),
     },
     mounted () {
         window.addEventListener('click', () => {
@@ -76,43 +92,96 @@ export default {
         });
     },
     methods: {
-        sendMessage () {
+        sendMessageClick () {
             window.scroll(0, 0); // ios键盘回落
             if (this.messageContent === '' || this.messageContent.trim().length === 0) {
                 this.messageContent = '';
                 this.$toast('不能发送空消息哦！');
                 this.$refs.input.focus();
-                console.log(this.$refs.input);
                 return;
             }
+            this.showMessage();
+            this.sendMessage();
+            this.messageContent = '';
+            document.activeElement.blur();
+        },
+        showMessage (path) {
             let message = {
                 payload: {
-                    text: this.messageContent,
+                    text: path || this.messageContent,
+                    loading: false,
+                    isDone: false,
                 },
-                nick: this.userInfo.nick,
+                nick: window.sessionStorage.getItem(this.$c.userIdKey),
                 avatar: this.userInfo.avatar,
                 time: Date.now() / 1000,
-                self: true,
             };
-
+            // console.log(message);
             this.$store.commit('IM/pushCurrentMessageList', message);
+        },
+        sendMessage (path) {
             this.tweblive.sendTextMessage({
-                roomID: '@TGS#aIQX23TGC',
+                roomID: '@TGS#a7QBYHUGX',
                 priority: this.TWebLive.TYPES.MSG_PRIORITY_NORMAL,
-                text: this.messageContent,
+                text: path || this.messageContent,
             })
-                .then(() => {return;})
+                .then(() => {
+                    this.operation.loading = false;
+                    this.$store.commit('IM/setCurrentMessageList', this.operation);
+                })
                 .catch((error) => {
-                    message.status = 'fail';
+                    // message.status = 'fail';
                     // JSON.stringify(error, ['message', 'code'])
                     if (error.code === 80001) {
                         this.$toast('文本中可能包含敏感词汇');
                     }
+                    this.operation.loading = false;
+                    this.operation.isDone = false;
+                    this.$store.commit('IM/setCurrentMessageList', this.operation);
                 });
-            this.messageContent = '';
-            document.activeElement.blur();
         },
-        chooseEmoji(item) {
+        afterRead (file) {
+            let reader = new FileReader();
+            let that = this;
+            /* eslint-disable no-new */
+            new Compressor(file.file, {
+                quality: 0.6,
+                convertSize: 600000,
+                width: document.body.clientWidth || document.documentElement.clientWidth,
+                success (result) {
+                    reader.readAsDataURL(result);
+                    reader.onload = () => {
+                        let uploadParams = {
+                            block: 'client',
+                            type: 'base64',
+                            file_content: reader.result,
+                        };
+                        that.operation._length = that.currentMessageList.length;
+                        that.operation.loading = true;
+                        let _path = '[photo___]';
+                        that.showMessage(`${_path}${reader.result}`);
+                        that.$store.commit('IM/setCurrentMessageList', that.operation);
+                        that.disableUpload = true;
+                        upload(uploadParams)
+                            .then((res) => {
+                                let path = `${_path}${res.data.file_path}`;
+                                that.sendMessage(path);
+                                that.disableUpload = false;
+                            })
+                            .catch(() => {
+                                that.disableUpload = false;
+                                that.operation.loading = false;
+                                that.operation.isDone = true;
+                                that.$store.commit('IM/setCurrentMessageList', that.operation);
+                            });
+                    };
+                },
+                // error (err) {
+                //     console.log(err.message);
+                // },
+            });
+        },
+        chooseEmoji (item) {
             this.messageContent += item;
         },
         handleFocus () {

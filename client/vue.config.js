@@ -55,8 +55,8 @@ module.exports = {
                 terserOptions: {
                     compress: {
                         drop_console: true,
-                        drop_debugger: true
-                    }
+                        drop_debugger: true,
+                    },
                 },
             }),
         );
@@ -115,6 +115,6 @@ module.exports = {
     lintOnSave: true,
     assetsDir: 'static',
     devServer: {
-        proxy: 'http://s.unguya.com',
+        proxy: 'http://ms.yidaiyun.com.cn/api/v1.0',
     },
 };

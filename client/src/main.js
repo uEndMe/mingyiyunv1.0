@@ -4,18 +4,18 @@ import App from './App.vue';
 import './registerServiceWorker';
 import router from './router';
 import store from './vuex';
+import { showVconsole } from './utils/vconsole';
 import './icons';
 import './assets/global.less';
 import 'amfe-flexible';
 import c from './config/config';
 
-// Vue.prototype.$lang = lang;
 Vue.prototype.$c = c;
 Vue.prototype.$toast = Toast;
 Vue.use(Lazyload);
 
 Vue.config.productionTip = false;
-
+showVconsole(false);
 new Vue({
     router,
     store,

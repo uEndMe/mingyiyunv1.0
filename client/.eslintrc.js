@@ -78,7 +78,7 @@ module.exports = {
         // 要求使用 isNaN() 检查 NaN
         'use-isnan': 2,
         // 强制使用有效的 JSDoc 注释
-        'valid-jsdoc': 1,
+        'valid-jsdoc': 0,
         // 强制 typeof 表达式与有效的字符串进行比较
         // typeof foo === "undefimed" 错误
         'valid-typeof': 2,
@@ -256,7 +256,7 @@ module.exports = {
         // require return statements after callbacks
         'callback-return': 0,
         // 要求 require() 出现在顶层模块作用域中
-        'global-require': 1,
+        'global-require': 0,
         // 要求回调函数中有容错处理
         'handle-callback-err': [2, '^(err|error)$'],
         // 禁止混合常规 var 声明和 require 调用
@@ -324,7 +324,7 @@ module.exports = {
         // 强制在关键字前后使用一致的空格 (前后腰需要)
         'keyword-spacing': 2,
         // 强制一行的最大长度
-        'max-len': [1, 200],
+        'max-len': 0,
         // 强制最大行数
         'max-lines': 0,
         // 强制 function 定义中最多允许的参数数量

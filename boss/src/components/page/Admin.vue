@@ -329,7 +329,7 @@ export default {
             };
             if(!this.vailParams(params)) return
             Admin.update(this.params).then(res => {
-                if(res !== false){
+                if(res){
                     this.$message.success('账号修改成功');
                     this.getAdminList();
                     this.editVisible = false;
@@ -377,7 +377,7 @@ export default {
         handleDelete (row) {
             Admin.del({admin_ids: row.admin_id?row.admin_id:this.admin_ids})
             .then(res => {
-                if(res !== false){
+                if(res){
                     this.$message.success('删除成功');
                     this.admin_ids = '';
                     this.getAdminList();
