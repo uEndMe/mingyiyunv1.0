@@ -16,13 +16,14 @@
     </div>
 </template>
 <script>
-import { Search, Icon } from 'vant';
+import { Search, Icon, navBar } from 'vant';
 import SliderTab from '@/components/SliderTabComponent.vue';
 export default {
     components: {
         SliderTab,
         [Search.name]: Search,
         [Icon.name]: Icon,
+        [navBar.name]: navBar,
     },
     data () {
         return {

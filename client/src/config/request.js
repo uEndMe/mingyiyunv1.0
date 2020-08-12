@@ -54,7 +54,7 @@ instance.interceptors.response.use((res) => {
     if (error.code === 'ECONNABORTED') {
         Toast('Request timeout!');
     } else {
-        console.log(error);
+        // console.log(error);
         Toast(error.message);
     }
     return Promise.reject();
