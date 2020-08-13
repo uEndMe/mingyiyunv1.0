@@ -7,6 +7,7 @@ export const md5 = (str) => {
     return md.digest('hex');
 };
 
+// sign 加密签名
 export const makeSign = (arys) => {
     const newkey = Object.keys(arys).sort();
     let paramsString = '';
