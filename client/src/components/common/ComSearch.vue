@@ -1,7 +1,15 @@
 <template>
-  <van-search class="search" shape="round" show-action placeholder="搜索">
+  <van-search
+    class="search"
+    shape="round"
+    show-action
+    placeholder="搜索"
+    @focus="openSearch = true"
+    @blur="openSearch = false"
+    @cancel="$router.replace('/home')"
+  >
     <van-icon slot="left-icon" name="search" color="#c2c2c2"></van-icon>
-    <svg-icon slot="action" icon-name="分类" class-name="icon-size"> </svg-icon>
+    <svg-icon v-if="goClassify" slot="action" icon-name="分类" class-name="icon-size"> </svg-icon>
   </van-search>
 </template>
 
@@ -9,7 +17,7 @@
 import { Search, Icon } from "vant";
 export default {
   // ---- ---- ---- ---- ---- 【组件信息】 ---- ---- ---- ---- ----
-  name: "HomeSearch",
+  name: "ComSearch",
   mixins: [],
   components: {
     [Search.name]: Search,
@@ -19,7 +27,10 @@ export default {
   // ---- ---- ---- ---- ---- 【响应数据】 ---- ---- ---- ---- ----
 
   // ---- ---- ---- ---- ---- 道具
-  props: {},
+  props: {
+    goClassify: Boolean, // 首页跳转 ‘分类频道’ 页面专用
+    openSearch: Boolean
+  },
 
   // ---- ---- ---- ---- ---- 数据
   data() {
@@ -56,5 +67,9 @@ export default {
 .icon-size {
   font-size: 28px;
   color: @main_gray;
+}
+.van-search__action {
+  font-size: 14px;
+  color: #888;
 }
 </style>

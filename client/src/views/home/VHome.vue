@@ -2,8 +2,10 @@
   <section class="bg">
     <!-- 搜索 -->
     <van-sticky>
-      <HomeSearch />
+      <ComSearch :goClassify="true" :openSearch="openSearch" />
+      <SearchMore v-show="openSearch" />
     </van-sticky>
+    <!-- 搜索展开 -->
     <!-- 导航 -->
     <slider-tab :data="nav" class="van-hairline--bottom" />
     <!-- 轮播 -->
@@ -15,33 +17,37 @@
     <!-- 文章 -->
     <HomeUpdate class="homeMore" />
     <!-- 底部 -->
-    <VFooter class="van-hairline--top" />
+    <ComFooter class="van-hairline--top" />
   </section>
 </template>
 <script>
 import SliderTab from "@/components/SliderTabComponent.vue";
-import VFooter from "@/components/common/VFooter.vue";
+import ComFooter from "@/components/common/ComFooter.vue";
+import ComSearch from "@/components/common/ComSearch";
 
-import HomeSearch from "./home/HomeSearch";
-import HomeSwipe from "./home/HomeSwipe";
-import HomeGrid from "./home/HomeGrid";
-import HomeCourse from "./home/HomeCourse";
-import HomeUpdate from "./home/HomeUpdate";
+import SearchMore from "./search/SearchMore";
+import HomeSwipe from "./HomeSwipe";
+import HomeGrid from "./HomeGrid";
+import HomeCourse from "./HomeCourse";
+import HomeUpdate from "./HomeUpdate";
 
 import { Sticky } from "vant";
 export default {
+  name: "VHome",
   components: {
     [Sticky.name]: Sticky, // 头部粘性布局
-    VFooter,
-    SliderTab,
-    HomeSearch,
-    HomeSwipe,
-    HomeGrid,
-    HomeCourse,
-    HomeUpdate
+    ComFooter, // 头部
+    SliderTab, // 滑块
+    ComSearch, // 搜索
+    SearchMore, // 搜索展开
+    HomeSwipe, // 轮播
+    HomeGrid, // 4图标
+    HomeCourse, // 课程
+    HomeUpdate // 更新
   },
   data() {
     return {
+      openSearch: false,
       nav: [
         { name: "推荐", path: "" },
         { name: "新知", path: "" },

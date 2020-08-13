@@ -1,23 +1,16 @@
 <template>
-  <van-tabbar v-model="active" inactive-color="#000" class="footer">
-    <van-tabbar-item to="/home" icon="star">首页</van-tabbar-item>
-    <van-tabbar-item to="/home" icon="star">广场</van-tabbar-item>
-    <van-tabbar-item to="/home" icon="star">发布</van-tabbar-item>
-    <van-tabbar-item to="/home" icon="star">社交</van-tabbar-item>
-    <van-tabbar-item to="/home" icon="star">我</van-tabbar-item>
-  </van-tabbar>
+  <section class="bg">
+    <ComSearch :goClassify="false" />
+  </section>
 </template>
 
 <script>
-import { Tabbar, TabbarItem } from "vant";
+import ComSearch from "@/components/common/ComSearch.vue";
 export default {
   // ---- ---- ---- ---- ---- 【组件信息】 ---- ---- ---- ---- ----
-  name: "VFooter",
+  name: "VSearch",
   mixins: [],
-  components: {
-    [Tabbar.name]: Tabbar,
-    [TabbarItem.name]: TabbarItem
-  },
+  components: { ComSearch },
 
   // ---- ---- ---- ---- ---- 【响应数据】 ---- ---- ---- ---- ----
 
@@ -26,7 +19,7 @@ export default {
 
   // ---- ---- ---- ---- ---- 数据
   data() {
-    return { active: 1 };
+    return {};
   },
 
   // ---- ---- ---- ---- ---- 计算
@@ -48,8 +41,4 @@ export default {
 };
 </script>
 
-<style lang="less" scoped>
-.footer {
-  background-color: @bg8;
-}
-</style>
+<style lang="less" scoped></style>

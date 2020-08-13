@@ -1,0 +1,55 @@
+<template>
+  <van-tabbar v-model="active" inactive-color="#000" class="footer">
+    <van-tabbar-item to="/home" icon="star">首页</van-tabbar-item>
+    <van-tabbar-item to="/home" icon="star">广场</van-tabbar-item>
+    <van-tabbar-item to="/home" icon="star">发布</van-tabbar-item>
+    <van-tabbar-item to="/home" icon="star">社交</van-tabbar-item>
+    <van-tabbar-item to="/home" icon="star">我</van-tabbar-item>
+  </van-tabbar>
+</template>
+
+<script>
+import { Tabbar, TabbarItem } from "vant";
+export default {
+  // ---- ---- ---- ---- ---- 【组件信息】 ---- ---- ---- ---- ----
+  name: "ComFooter",
+  mixins: [],
+  components: {
+    [Tabbar.name]: Tabbar,
+    [TabbarItem.name]: TabbarItem
+  },
+
+  // ---- ---- ---- ---- ---- 【响应数据】 ---- ---- ---- ---- ----
+
+  // ---- ---- ---- ---- ---- 道具
+  props: {},
+
+  // ---- ---- ---- ---- ---- 数据
+  data() {
+    return { active: 1 };
+  },
+
+  // ---- ---- ---- ---- ---- 计算
+  computed: {},
+
+  // ---- ---- ---- ---- ---- 监视
+  watch: {},
+
+  // ---- ---- ---- ---- ---- 【生命周期】 ---- ---- ---- ---- ----
+
+  // ---- ---- ---- ---- ---- 创造
+  created() {},
+
+  // ---- ---- ---- ---- ---- 挂载
+  mounted() {},
+
+  // ---- ---- ---- ---- ---- 销毁
+  beforeDestroy() {}
+};
+</script>
+
+<style lang="less" scoped>
+.footer {
+  background-color: @bg8;
+}
+</style>
