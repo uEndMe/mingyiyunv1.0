@@ -30,7 +30,7 @@ export default {
   computed: {},
 
   // ---- ---- ---- ---- ---- 监视
-  watch: {},
+  watch: {}
 
   // ---- ---- ---- ---- ---- 【生命周期】 ---- ---- ---- ---- ----
 
@@ -41,7 +41,7 @@ export default {
   // mounted() {},
 
   // ---- ---- ---- ---- ---- 销毁
-  beforeDestroy() {}
+  // beforeDestroy() {}
 };
 </script>
 
