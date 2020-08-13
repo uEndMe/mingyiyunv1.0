@@ -1,20 +1,44 @@
 <template>
-  <div class="bg">
-    <HomeSearch />
-    <div>
-      <slider-tab :data="nav"></slider-tab>
-    </div>
-  </div>
+  <section class="bg">
+    <!-- 搜索 -->
+    <van-sticky>
+      <HomeSearch />
+    </van-sticky>
+    <!-- 导航 -->
+    <slider-tab :data="nav" class="van-hairline--bottom" />
+    <!-- 轮播 -->
+    <HomeSwipe />
+    <!-- 选项 -->
+    <HomeGrid />
+    <!-- 课程 -->
+    <HomeCourse />
+    <!-- 文章 -->
+    <HomeUpdate class="homeMore" />
+    <!-- 底部 -->
+    <VFooter class="van-hairline--top" />
+  </section>
 </template>
 <script>
-import { Search, Icon, navBar } from "vant";
 import SliderTab from "@/components/SliderTabComponent.vue";
+import VFooter from "@/components/common/VFooter.vue";
+
+import HomeSearch from "./home/HomeSearch";
+import HomeSwipe from "./home/HomeSwipe";
+import HomeGrid from "./home/HomeGrid";
+import HomeCourse from "./home/HomeCourse";
+import HomeUpdate from "./home/HomeUpdate";
+
+import { Sticky } from "vant";
 export default {
   components: {
+    [Sticky.name]: Sticky, // 头部粘性布局
+    VFooter,
     SliderTab,
-    [Search.name]: Search,
-    [Icon.name]: Icon,
-    [navBar.name]: navBar
+    HomeSearch,
+    HomeSwipe,
+    HomeGrid,
+    HomeCourse,
+    HomeUpdate
   },
   data() {
     return {
@@ -37,8 +61,7 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-.icon-size {
-  font-size: 28px;
-  color: @main_gray;
+.homeMore {
+  padding-bottom: 68px;
 }
 </style>

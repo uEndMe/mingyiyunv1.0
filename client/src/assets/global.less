@@ -1,46 +1,66 @@
-*{padding: 0; margin: 0;}
+* {
+  padding: 0;
+  margin: 0;
+}
 
-.van-card, .van-cell, .van-field {
-    padding-left: 20px!important;
-    padding-right: 20px!important;
+.van-card,
+.van-cell,
+.van-field {
+  padding-left: 20px !important;
+  padding-right: 20px !important;
 }
 
 .van-card {
-    background-color: #ffffff!important;
+  background-color: #ffffff !important;
 }
 
 .the-wall {
-    box-sizing: border-box;
-    padding: @tb_padding;
+  box-sizing: border-box;
+  padding: @tb_padding;
 }
 
 .the-white {
-    background-color: #ffffff;
+  background-color: #ffffff;
 }
 
 .the-ellipsis {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow:ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .bg-gray {
-    box-sizing: border-box;
-    height: 100vh;
-    overflow: scroll;
-    -webkit-overflow-scrolling: touch; //解决ios手机页面滑动卡顿
-    background-color: #fafafa;
-    &::-webkit-scrollbar {
-        display: none;
-    }
+  box-sizing: border-box;
+  height: 100vh;
+  overflow: scroll;
+  -webkit-overflow-scrolling: touch; //解决ios手机页面滑动卡顿
+  background-color: #fafafa;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .bg {
-    box-sizing: border-box;
-    height: 100vh;
-    overflow: scroll;
-    -webkit-overflow-scrolling: touch;
-    &::-webkit-scrollbar {
-        display: none;
-    }
+  box-sizing: border-box;
+  height: 100vh;
+  overflow: scroll;
+  -webkit-overflow-scrolling: touch;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+// 基础样式
+// 二级标题
+.h2 {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  vertical-align: middle;
+  margin-bottom: 8px;
+}
+
+// 嵌入图标
+.inner::before {
+  transform: translateY(15%);
 }

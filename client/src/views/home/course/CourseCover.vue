@@ -1,20 +1,16 @@
 <template>
-  <van-search class="search" shape="round" show-action placeholder="搜索">
-    <van-icon slot="left-icon" name="search" color="#c2c2c2"></van-icon>
-    <svg-icon slot="action" icon-name="分类" class-name="icon-size"> </svg-icon>
-  </van-search>
+  <div class="cover">
+    <img class="coverImg" src="https://img.yzcdn.cn/vant/cat.jpeg" alt="xx" />
+    <p class="coverTxt van-ellipsis">正在直播的课程标题很长很长很长的</p>
+  </div>
 </template>
 
 <script>
-import { Search, Icon } from "vant";
 export default {
   // ---- ---- ---- ---- ---- 【组件信息】 ---- ---- ---- ---- ----
-  name: "HomeSearch",
+  name: "CourseCover",
   mixins: [],
-  components: {
-    [Search.name]: Search,
-    [Icon.name]: Icon
-  },
+  components: {},
 
   // ---- ---- ---- ---- ---- 【响应数据】 ---- ---- ---- ---- ----
 
@@ -30,31 +26,31 @@ export default {
   computed: {},
 
   // ---- ---- ---- ---- ---- 监视
-  watch: {}
+  watch: {},
 
   // ---- ---- ---- ---- ---- 【生命周期】 ---- ---- ---- ---- ----
 
   // ---- ---- ---- ---- ---- 创造
-  // created() {},
+  created() {},
 
   // ---- ---- ---- ---- ---- 挂载
-  // mounted() {},
+  mounted() {},
 
   // ---- ---- ---- ---- ---- 销毁
-  // beforeDestroy() {}
+  beforeDestroy() {}
 };
 </script>
 
 <style lang="less" scoped>
-.search {
-  background-color: @bg;
+.cover {
+  width: 0px; // 由剩余空间决定
 }
-.search > .van-search__content {
-  border: 1px solid @grey;
-  background-color: white;
+.coverImg {
+  border-radius: 2px;
+  width: 100%;
 }
-.icon-size {
-  font-size: 28px;
-  color: @main_gray;
+.coverTxt {
+  font-size: 10px;
+  line-height: 16px;
 }
 </style>

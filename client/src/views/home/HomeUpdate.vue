@@ -1,20 +1,18 @@
 <template>
-  <van-search class="search" shape="round" show-action placeholder="搜索">
-    <van-icon slot="left-icon" name="search" color="#c2c2c2"></van-icon>
-    <svg-icon slot="action" icon-name="分类" class-name="icon-size"> </svg-icon>
-  </van-search>
+  <div class="update">
+    <h2 class="h2">最近更新</h2>
+    <UpdateArticle class="updateArticle" v-for="i in 10" :key="i" />
+    <p class="updateNew"><i class="inner van-icon van-icon-replay" /> 刷新最近更新内容...</p>
+  </div>
 </template>
 
 <script>
-import { Search, Icon } from "vant";
+import UpdateArticle from "./update/UpdateArticle";
 export default {
   // ---- ---- ---- ---- ---- 【组件信息】 ---- ---- ---- ---- ----
-  name: "HomeSearch",
+  name: "HomeUpdate",
   mixins: [],
-  components: {
-    [Search.name]: Search,
-    [Icon.name]: Icon
-  },
+  components: { UpdateArticle },
 
   // ---- ---- ---- ---- ---- 【响应数据】 ---- ---- ---- ---- ----
 
@@ -30,31 +28,31 @@ export default {
   computed: {},
 
   // ---- ---- ---- ---- ---- 监视
-  watch: {}
+  watch: {},
 
   // ---- ---- ---- ---- ---- 【生命周期】 ---- ---- ---- ---- ----
 
   // ---- ---- ---- ---- ---- 创造
-  // created() {},
+  created() {},
 
   // ---- ---- ---- ---- ---- 挂载
-  // mounted() {},
+  mounted() {},
 
   // ---- ---- ---- ---- ---- 销毁
-  // beforeDestroy() {}
+  beforeDestroy() {}
 };
 </script>
 
 <style lang="less" scoped>
-.search {
-  background-color: @bg;
+.update {
+  padding: 20px 16px;
 }
-.search > .van-search__content {
-  border: 1px solid @grey;
-  background-color: white;
+.updateArticle {
+  margin-bottom: 16px;
 }
-.icon-size {
-  font-size: 28px;
-  color: @main_gray;
+.updateNew {
+  font-size: 14px;
+  color: #888;
+  text-align: center;
 }
 </style>
