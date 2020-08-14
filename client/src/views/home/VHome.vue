@@ -23,7 +23,7 @@
       </div>
     </keep-alive>
     <!-- 底部 -->
-    <ComFooter />
+    <ComFooter :active="+0" />
   </section>
 </template>
 <script>

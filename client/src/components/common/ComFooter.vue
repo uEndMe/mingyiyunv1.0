@@ -1,16 +1,17 @@
 <template>
   <van-tabbar v-model="active"
+              :route="true"
               inactive-color="#000"
               class="footer">
     <van-tabbar-item to="/home"
                      icon="star">首页</van-tabbar-item>
-    <van-tabbar-item to="/home"
+    <van-tabbar-item to="/plaza"
                      icon="star">广场</van-tabbar-item>
-    <van-tabbar-item to="/home"
+    <van-tabbar-item to="/publish"
                      icon="star">发布</van-tabbar-item>
-    <van-tabbar-item to="/home"
+    <van-tabbar-item to="/chat"
                      icon="star">社交</van-tabbar-item>
-    <van-tabbar-item to="/home"
+    <van-tabbar-item to="/me"
                      icon="star">我</van-tabbar-item>
   </van-tabbar>
 </template>
@@ -29,11 +30,14 @@ export default {
   // ---- ---- ---- ---- ---- 【响应数据】 ---- ---- ---- ---- ----
 
   // ---- ---- ---- ---- ---- 道具
-  props: {},
+  props: {
+    active: Number,
+  },
 
   // ---- ---- ---- ---- ---- 数据
   data () {
-    return { active: 1 };
+    return {
+    };
   },
 
   // ---- ---- ---- ---- ---- 计算

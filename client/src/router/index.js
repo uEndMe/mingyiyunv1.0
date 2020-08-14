@@ -1,8 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 // import c from '../config/config';
-import VHome from "@/views/home/VHome.vue";
-import VClassify from "@/views/classify/VClassify.vue";
 
 Vue.use(VueRouter);
 const routes = [
@@ -18,17 +16,37 @@ const routes = [
   {
     path: "/home",
     name: "home",
-    component: VHome
+    component: () => import("../views/home/VHome")
   },
   {
     path: "/classify",
     name: "classify",
-    component: VClassify
+    component: () => import("../views/classify/VClassify")
   },
   {
     path: "/live",
     name: "live",
     component: () => import("../views/LiveClass.vue")
+  },
+  {
+    path: "/plaza",
+    name: "plaza",
+    component: () => import("../views/plaza/VPlaza")
+  },
+  {
+    path: "/publish",
+    name: "publish",
+    component: () => import("../views/publish/VPublish")
+  },
+  {
+    path: "/chat",
+    name: "chat",
+    component: () => import("../views/chat/VChat")
+  },
+  {
+    path: "/me",
+    name: "me",
+    component: () => import("../views/me/VMe")
   }
 ];
 
