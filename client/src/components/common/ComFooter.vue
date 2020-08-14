@@ -1,10 +1,17 @@
 <template>
-  <van-tabbar v-model="active" inactive-color="#000" class="footer">
-    <van-tabbar-item to="/home" icon="star">首页</van-tabbar-item>
-    <van-tabbar-item to="/home" icon="star">广场</van-tabbar-item>
-    <van-tabbar-item to="/home" icon="star">发布</van-tabbar-item>
-    <van-tabbar-item to="/home" icon="star">社交</van-tabbar-item>
-    <van-tabbar-item to="/home" icon="star">我</van-tabbar-item>
+  <van-tabbar v-model="active"
+              inactive-color="#000"
+              class="footer">
+    <van-tabbar-item to="/home"
+                     icon="star">首页</van-tabbar-item>
+    <van-tabbar-item to="/home"
+                     icon="star">广场</van-tabbar-item>
+    <van-tabbar-item to="/home"
+                     icon="star">发布</van-tabbar-item>
+    <van-tabbar-item to="/home"
+                     icon="star">社交</van-tabbar-item>
+    <van-tabbar-item to="/home"
+                     icon="star">我</van-tabbar-item>
   </van-tabbar>
 </template>
 
@@ -25,7 +32,7 @@ export default {
   props: {},
 
   // ---- ---- ---- ---- ---- 数据
-  data() {
+  data () {
     return { active: 1 };
   },
 
@@ -38,13 +45,13 @@ export default {
   // ---- ---- ---- ---- ---- 【生命周期】 ---- ---- ---- ---- ----
 
   // ---- ---- ---- ---- ---- 创造
-  created() {},
+  created () { },
 
   // ---- ---- ---- ---- ---- 挂载
-  mounted() {},
+  mounted () { },
 
   // ---- ---- ---- ---- ---- 销毁
-  beforeDestroy() {}
+  beforeDestroy () { }
 };
 </script>
 

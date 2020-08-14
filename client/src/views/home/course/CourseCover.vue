@@ -1,7 +1,9 @@
 <template>
   <div class="cover">
-    <img class="coverImg" src="https://img.yzcdn.cn/vant/cat.jpeg" alt="xx" />
-    <p class="coverTxt van-ellipsis">正在直播的课程标题很长很长很长的</p>
+    <img class="coverImg"
+         :src="src"
+         alt="xx" />
+    <p class="coverTxt van-ellipsis">{{title}}</p>
   </div>
 </template>
 
@@ -15,10 +17,13 @@ export default {
   // ---- ---- ---- ---- ---- 【响应数据】 ---- ---- ---- ---- ----
 
   // ---- ---- ---- ---- ---- 道具
-  props: {},
+  props: {
+    src: String,  // 图片url
+    title: String, // 标题
+  },
 
   // ---- ---- ---- ---- ---- 数据
-  data() {
+  data () {
     return {};
   },
 
@@ -31,13 +36,13 @@ export default {
   // ---- ---- ---- ---- ---- 【生命周期】 ---- ---- ---- ---- ----
 
   // ---- ---- ---- ---- ---- 创造
-  created() {},
+  created () { },
 
   // ---- ---- ---- ---- ---- 挂载
-  mounted() {},
+  mounted () { },
 
   // ---- ---- ---- ---- ---- 销毁
-  beforeDestroy() {}
+  beforeDestroy () { }
 };
 </script>
 

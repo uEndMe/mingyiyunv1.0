@@ -1,7 +1,8 @@
 <template>
   <div class="update">
     <h2 class="h2">最近更新</h2>
-    <UpdateArticle class="updateArticle" v-for="i in 10" :key="i" />
+    <UpdateArticle v-for="i in 10"
+                   :key="i" />
     <p class="updateNew"><i class="inner van-icon van-icon-replay" /> 刷新最近更新内容...</p>
   </div>
 </template>
@@ -20,7 +21,7 @@ export default {
   props: {},
 
   // ---- ---- ---- ---- ---- 数据
-  data() {
+  data () {
     return {};
   },
 
@@ -33,25 +34,23 @@ export default {
   // ---- ---- ---- ---- ---- 【生命周期】 ---- ---- ---- ---- ----
 
   // ---- ---- ---- ---- ---- 创造
-  created() {},
+  created () { },
 
   // ---- ---- ---- ---- ---- 挂载
-  mounted() {},
+  mounted () { },
 
   // ---- ---- ---- ---- ---- 销毁
-  beforeDestroy() {}
+  beforeDestroy () { }
 };
 </script>
 
 <style lang="less" scoped>
 .update {
-  padding: 20px 16px;
-}
-.updateArticle {
-  margin-bottom: 16px;
+  padding: 20px;
 }
 .updateNew {
   font-size: 14px;
+  line-height: 42px;
   color: #888;
   text-align: center;
 }

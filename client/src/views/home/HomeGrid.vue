@@ -1,19 +1,27 @@
 <template>
   <ul class="grid">
     <li class="gridCell">
-      <img class="gridIcon" src="https://img.yzcdn.cn/vant/leaf.jpg" alt="" />
+      <img class="gridIcon"
+           src="https://img.yzcdn.cn/vant/leaf.jpg"
+           alt="" />
       <span>新药品</span>
     </li>
     <li class="gridCell">
-      <img class="gridIcon" src="https://img.yzcdn.cn/vant/leaf.jpg" alt="" />
+      <img class="gridIcon"
+           src="https://img.yzcdn.cn/vant/leaf.jpg"
+           alt="" />
       <span>新治疗</span>
     </li>
     <li class="gridCell">
-      <img class="gridIcon" src="https://img.yzcdn.cn/vant/leaf.jpg" alt="" />
+      <img class="gridIcon"
+           src="https://img.yzcdn.cn/vant/leaf.jpg"
+           alt="" />
       <span>新器械</span>
     </li>
     <li class="gridCell">
-      <img class="gridIcon" src="https://img.yzcdn.cn/vant/leaf.jpg" alt="" />
+      <img class="gridIcon"
+           src="https://img.yzcdn.cn/vant/leaf.jpg"
+           alt="" />
       <span>听讲座</span>
     </li>
   </ul>
@@ -32,7 +40,7 @@ export default {
   props: {},
 
   // ---- ---- ---- ---- ---- 数据
-  data() {
+  data () {
     return {};
   },
 
@@ -45,20 +53,20 @@ export default {
   // ---- ---- ---- ---- ---- 【生命周期】 ---- ---- ---- ---- ----
 
   // ---- ---- ---- ---- ---- 创造
-  created() {},
+  created () { },
 
   // ---- ---- ---- ---- ---- 挂载
-  mounted() {},
+  mounted () { },
 
   // ---- ---- ---- ---- ---- 销毁
-  beforeDestroy() {}
+  beforeDestroy () { }
 };
 </script>
 
 <style lang="less" scoped>
 .grid {
   display: flex;
-  margin: 20px 0;
+  margin: 20px 16px;
 }
 .gridCell {
   width: 0;

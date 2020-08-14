@@ -1,13 +1,18 @@
 <template>
-  <article class="article">
+  <article class="article main-line-bottom">
     <div class="articleMain">
-      <img class="articleImg" src="https://img.yzcdn.cn/vant/sand.jpg" alt="" />
+      <img class="articleImg"
+           src="https://img.yzcdn.cn/vant/sand.jpg"
+           alt="" />
       <div class="articleContent">
         <p class="articleTitle">内容名称</p>
         <div class="articleTxt">
           <p>这是一段描述</p>
           <div class="articleTag">
-            <van-tag v-for="i in 2" :key="i" color="#eee" text-color="#888">这是标签</van-tag>
+            <van-tag v-for="i in 2"
+                     :key="i"
+                     color="#eee"
+                     text-color="#888">这是标签</van-tag>
           </div>
         </div>
         <div>
@@ -22,18 +27,16 @@
         </div>
       </div>
     </div>
-    <van-divider />
   </article>
 </template>
 
 <script>
-import { Divider, Tag } from "vant";
+import { Tag } from "vant";
 export default {
   // ---- ---- ---- ---- ---- 【组件信息】 ---- ---- ---- ---- ----
   name: "UpdateArticle",
   mixins: [],
   components: {
-    [Divider.name]: Divider,
     [Tag.name]: Tag
   },
 
@@ -43,7 +46,7 @@ export default {
   props: {},
 
   // ---- ---- ---- ---- ---- 数据
-  data() {
+  data () {
     return {};
   },
 
@@ -56,19 +59,20 @@ export default {
   // ---- ---- ---- ---- ---- 【生命周期】 ---- ---- ---- ---- ----
 
   // ---- ---- ---- ---- ---- 创造
-  created() {},
+  created () { },
 
   // ---- ---- ---- ---- ---- 挂载
-  mounted() {},
+  mounted () { },
 
   // ---- ---- ---- ---- ---- 销毁
-  beforeDestroy() {}
+  beforeDestroy () { }
 };
 </script>
 
 <style lang="less" scoped>
-// .shell
-
+.article {
+  padding: 18px 0;
+}
 .articleMain {
   display: flex;
 }

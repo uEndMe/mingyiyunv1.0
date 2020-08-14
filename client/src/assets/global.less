@@ -57,10 +57,49 @@
   font-weight: 400;
   line-height: 24px;
   vertical-align: middle;
-  margin-bottom: 8px;
+}
+
+.h3 {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  vertical-align: middle;
 }
 
 // 嵌入图标
 .inner::before {
   transform: translateY(15%);
+}
+
+// 1px分割线
+
+[class*='main-line'] {
+  position: relative;
+  &::after {
+    position: absolute;
+    content: '';
+    pointer-events: none;
+
+    left: 0;
+    width: 100%;
+    height: 1px;
+
+    background-color: rgba(128, 128, 128, 0.38);
+
+    @media only screen and (-webkit-device-pixel-ratio: 2) {
+      -webkit-transform: scaleY(0.5);
+      transform: scaleY(0.5);
+    }
+    @media only screen and (-webkit-device-pixel-ratio: 3) {
+      -webkit-transform: scaleY(0.33);
+      transform: scaleY(0.33);
+    }
+  }
+}
+
+.main-line-bottom::after {
+  bottom: 0;
+}
+.main-line-top::after {
+  top: 0;
 }

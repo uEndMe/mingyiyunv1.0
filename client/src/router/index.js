@@ -2,7 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 // import c from '../config/config';
 import VHome from "@/views/home/VHome.vue";
-import VSearch from "@/views/search/VSearch.vue";
+import VClassify from "@/views/classify/VClassify.vue";
 
 Vue.use(VueRouter);
 const routes = [
@@ -21,9 +21,9 @@ const routes = [
     component: VHome
   },
   {
-    path: "/search",
-    name: "search",
-    component: VSearch
+    path: "/classify",
+    name: "classify",
+    component: VClassify
   },
   {
     path: "/live",

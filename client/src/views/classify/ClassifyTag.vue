@@ -1,16 +1,15 @@
 <template>
-  <section class="bg">
-    <ComSearch :goClassify="false" />
-  </section>
+  <li class="tag">
+    <slot></slot>
+  </li>
 </template>
 
 <script>
-import ComSearch from "@/components/common/ComSearch.vue";
 export default {
   // ---- ---- ---- ---- ---- 【组件信息】 ---- ---- ---- ---- ----
-  name: "VSearch",
+  name: 'ClassifyTag',
   mixins: [],
-  components: { ComSearch },
+  components: {},
 
   // ---- ---- ---- ---- ---- 【响应数据】 ---- ---- ---- ---- ----
 
@@ -18,9 +17,7 @@ export default {
   props: {},
 
   // ---- ---- ---- ---- ---- 数据
-  data() {
-    return {};
-  },
+  data () { return {} },
 
   // ---- ---- ---- ---- ---- 计算
   computed: {},
@@ -31,14 +28,24 @@ export default {
   // ---- ---- ---- ---- ---- 【生命周期】 ---- ---- ---- ---- ----
 
   // ---- ---- ---- ---- ---- 创造
-  created() {},
+  created () { },
 
   // ---- ---- ---- ---- ---- 挂载
-  mounted() {},
+  mounted () { },
 
   // ---- ---- ---- ---- ---- 销毁
-  beforeDestroy() {}
-};
+  beforeDestroy () { },
+
+  // ---- ---- ---- ---- ---- 方法
+  methods: {}
+}
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.tag {
+  border-radius: 4px;
+  text-align: center;
+  font-size: 12px;
+  background-color: rgb(238, 238, 238);
+}
+</style>

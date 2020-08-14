@@ -2,22 +2,28 @@
   <section class="bg">
     <!-- 搜索 -->
     <van-sticky>
-      <ComSearch :goClassify="true" :openSearch="openSearch" />
-      <SearchMore v-show="openSearch" />
+      <ComSearch :showClassify="showClassify"
+                 :expSearch="expSearch" />
     </van-sticky>
     <!-- 搜索展开 -->
-    <!-- 导航 -->
-    <slider-tab :data="nav" class="van-hairline--bottom" />
-    <!-- 轮播 -->
-    <HomeSwipe />
-    <!-- 选项 -->
-    <HomeGrid />
-    <!-- 课程 -->
-    <HomeCourse />
-    <!-- 文章 -->
-    <HomeUpdate class="homeMore" />
+    <keep-alive>
+      <SearchMore v-if="openSearch" />
+      <div v-else>
+        <!-- 导航 -->
+        <slider-tab :data="nav"
+                    class="van-hairline--bottom" />
+        <!-- 轮播 -->
+        <HomeSwipe />
+        <!-- 选项 -->
+        <HomeGrid />
+        <!-- 课程 -->
+        <HomeCourse />
+        <!-- 文章 -->
+        <HomeUpdate class="homeMore" />
+      </div>
+    </keep-alive>
     <!-- 底部 -->
-    <ComFooter class="van-hairline--top" />
+    <ComFooter />
   </section>
 </template>
 <script>
@@ -45,9 +51,10 @@ export default {
     HomeCourse, // 课程
     HomeUpdate // 更新
   },
-  data() {
+  data () {
     return {
-      openSearch: false,
+      openSearch: false,  // 展开：搜索面板
+      showClassify: true, // 显示：更多频道按钮
       nav: [
         { name: "推荐", path: "" },
         { name: "新知", path: "" },
@@ -63,11 +70,34 @@ export default {
         { name: "VOD", path: "" }
       ]
     };
+  },
+
+  // ---- ---- ---- ---- ---- 计算
+  computed: {},
+
+  // ---- ---- ---- ---- ---- 监视
+  watch: {},
+
+  // ---- ---- ---- ---- ---- 【生命周期】 ---- ---- ---- ---- ----
+
+  // ---- ---- ---- ---- ---- 创造
+  // created() {},
+
+  // ---- ---- ---- ---- ---- 挂载
+  // mounted() {},
+
+  // ---- ---- ---- ---- ---- 销毁
+  // beforeDestroy() {}
+  methods: {
+    expSearch (val) {
+      this.showClassify = !val;
+      this.openSearch = val;
+    }
   }
 };
 </script>
 <style lang="less" scoped>
 .homeMore {
-  padding-bottom: 68px;
+  padding-bottom: 52px;
 }
 </style>
