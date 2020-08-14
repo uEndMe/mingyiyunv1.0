@@ -6,7 +6,7 @@ init 初始化
 rebuild     eslint      重新配置 eslint,及其他配置
 fulfilled   home        home 静态页面
 update      home        search 功能实现中...
-
+update      home        搜索下拉，分类频道.
 
 
 
