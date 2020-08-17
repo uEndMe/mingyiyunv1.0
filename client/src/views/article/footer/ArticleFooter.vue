@@ -4,30 +4,51 @@
               class="footerItem"
               @click="$router.go(-1)" />
     <input type="text"
-           v-model="value"
            placeholder="说点什么..."
+           @focus="show = true"
            class="footerInput footerItem">
     <van-icon name="chat-o"
               :badge="chatCount"
               class="footerItem" />
-    <!-- <i class="footerChat  van-icon van-icon-chat-o" /> -->
     <van-icon name="like-o"
               class="footerItem" />
-    <!-- <i class="footerGood  van-icon van-icon-good-job-o" /> -->
     <van-icon name="cluster-o"
               class="footerItem" />
-    <!-- <i class="footerShare  van-icon van-icon-cluster-o" /> -->
+    <button @click="show=true">弹出</button>
+
+    <!-- 弹出输入框 -->
+    <van-popup v-model="show"
+               position="bottom">
+      <form action="javascript: void(0)"
+            method="get"
+            class="footerForm">
+        <textarea class="footerTextarea"
+                  :autofocus="show"
+                  v-model="value"
+                  placeholder="说点什么..."
+                  name="msg"></textarea>
+        <div class="footerSubmitBox">
+          <span class="footerCount">{{value.length}}/300</span>
+          <van-button native-type="submit"
+                      type="default"
+                      color="#b7b7b7"
+                      class="footerSubmit">发送</van-button>
+        </div>
+      </form>
+    </van-popup>
   </div>
 </template>
 
 <script>
-import { Icon } from 'vant';
+import { Icon, Popup, Button } from 'vant';
 export default {
   // ---- ---- ---- ---- ---- 【组件信息】 ---- ---- ---- ---- ----
   name: 'ArticleFooter',
   mixins: [],
   components: {
     [Icon.name]: Icon,
+    [Popup.name]: Popup,
+    [Button.name]: Button,
   },
 
   // ---- ---- ---- ---- ---- 【响应数据】 ---- ---- ---- ---- ----
@@ -41,6 +62,7 @@ export default {
   data () {
     return {
       value: '',
+      show: false,  // 弹出输入框
     }
   },
 
@@ -96,5 +118,30 @@ export default {
   border-radius: 4px;
   font-size: 14px;
   background-color: #e0e0e0;
+}
+
+// 弹出输入框
+.footerForm {
+  font-size: 16px;
+}
+.footerTextarea {
+  box-sizing: border-box;
+  width: 100%;
+  height: 128px;
+  padding: 20px;
+  border: 0;
+  resize: none;
+}
+.footerSubmitBox {
+  // height: 10px;
+  font-size: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+}
+.footerSubmit {
+  width: 80px;
+  height: 32px;
 }
 </style>

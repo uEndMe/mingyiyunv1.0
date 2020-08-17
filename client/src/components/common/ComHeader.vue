@@ -7,7 +7,8 @@
                @click-right="onClickRight">
     <template #left>
       <van-icon class="navbarRes"
-                name="arrow-left" />
+                name="arrow-left"
+                size="20" />
     </template>
 
   </van-nav-bar>
@@ -72,8 +73,9 @@ export default {
 }
 
 .navbarRes {
-  border: 1px solid;
+  // border: 1px solid;
   border-radius: 50%;
   padding: 2px;
+  color: @minor;
 }
 </style>

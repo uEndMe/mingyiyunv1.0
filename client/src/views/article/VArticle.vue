@@ -8,36 +8,13 @@
   </ComLoaderr>
   <div v-else-if="state.loaded"
        class="bg article">
+    <!-- 滚动窗口 -->
     <article class="articleMain">
       <!-- 标题 -->
       <h1 class="articleH1">{{data.title}}</h1>
+
       <!-- 用户信息 -->
-      <div class="articleUserBox">
-        <!-- 左 -->
-        <div class="articleUserInfo">
-          <!-- 头像 -->
-          <img :src="data.icon"
-               class="articleIcon"
-               alt="头像">
-          <!-- 用户名 -->
-          <div class="articleUser">
-            <p class="articleName">
-              <span>{{data.name}}</span>
-              <van-tag class="articleTag"
-                       v-for="(i,j) in data.tag"
-                       :key="j"
-                       color="#ececec"
-                       text-color="#535353">{{i}}</van-tag>
-            </p>
-            <p class="articleTime">{{data.time}}</p>
-          </div>
-        </div>
-        <!-- 右 -->
-        <van-button type="default"
-                    class="articleFocus"
-                    :class="{articleIsFocus:data.focus}"
-                    @click="focusUser">{{data.focus ? '已关注' : '关注'}} </van-button>
-      </div>
+      <ArticleUser :data="data" />
       <!-- 描述 -->
       <p class="articleDesc">
         {{data.desc}}
@@ -66,16 +43,18 @@
     <!-- 底部输入框 -->
     <ArticleFooter class="articleFooter"
                    :chatCount="data.chat.length" />
+
   </div>
 
 </template>
 
 <script>
-import { Button, Tag } from 'vant';
+import { Button } from 'vant';
 
 import ComLoading from '@/components/common/ComLoading'
 import ComLoaderr from '@/components/common/ComLoaderr'
 
+import ArticleUser from './user/ArticleUser'
 import ArticleChat from './chat/ArticleChat';
 import ArticleFooter from './footer/ArticleFooter'
 export default {
@@ -84,9 +63,9 @@ export default {
   mixins: [],
   components: {
     [Button.name]: Button,
-    [Tag.name]: Tag,
     ComLoading,
     ComLoaderr,
+    ArticleUser,
     ArticleChat,
     ArticleFooter,
   },
@@ -176,10 +155,6 @@ export default {
 
   // ---- ---- ---- ---- ---- 方法
   methods: {
-    focusUser () {
-      this.data.focus = !this.data.focus
-      // req(...)
-    },
     load () {
       // req($route.params.id)
       // 模拟加载
@@ -199,10 +174,7 @@ export default {
   flex-direction: column;
 }
 .articleMain {
-  // box-sizing: border-box;
   padding: 20px;
-  // height: 1px;
-  // flex: 1;
   overflow-y: scroll;
 }
 .articleH1 {
@@ -211,53 +183,6 @@ export default {
   font-weight: 700;
   margin-bottom: 26px;
   text-align: justify;
-}
-
-// 用户信息
-.articleUserBox {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 30px;
-}
-.articleIcon {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-}
-.articleUserInfo {
-  display: flex;
-  align-items: center;
-}
-
-.articleUser {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 46px;
-  padding-left: 10px;
-}
-.articleName {
-  font-size: 14px;
-  display: flex;
-  align-items: center;
-}
-.articleTag {
-  margin-left: 4px;
-}
-
-.articleTime {
-  font-size: 12px;
-  color: @minor;
-}
-.articleFocus {
-  width: 88px;
-  height: 30px;
-  border-radius: 4px;
-  font-size: 12px;
-}
-.articleIsFocus {
-  color: @minor;
 }
 
 // 副标题
