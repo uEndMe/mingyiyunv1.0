@@ -1,36 +1,32 @@
 <template>
-  <van-nav-bar class="navbar "
-               :title="title"
-               right-text="编辑"
-               left-arrow
-               @click-left="$router.go(-1)"
-               @click-right="onClickRight">
-    <template #left>
-      <van-icon class="navbarRes"
-                name="arrow-left" />
-    </template>
+  <div class="bg loaderr">
+    <ComHeader title="加载失败" />
+    <div class="loaderrContent">
+      <van-empty image="error"
+                 class="loaderrImg"
+                 description="点击重新加载" />
+    </div>
 
-  </van-nav-bar>
-
+  </div>
 </template>
 
 <script>
-import { NavBar, Icon } from 'vant';
+import ComHeader from '@/components/common/ComHeader'
+
+import { Empty } from 'vant';
 export default {
   // ---- ---- ---- ---- ---- 【组件信息】 ---- ---- ---- ---- ----
-  name: '',
+  name: 'ComLoaderr',
   mixins: [],
   components: {
-    [NavBar.name]: NavBar,
-    [Icon.name]: Icon,
+    ComHeader,
+    [Empty.name]: Empty,
   },
 
   // ---- ---- ---- ---- ---- 【响应数据】 ---- ---- ---- ---- ----
 
   // ---- ---- ---- ---- ---- 道具
-  props: {
-    title: String, // 标题
-  },
+  props: {},
 
   // ---- ---- ---- ---- ---- 数据
   data () { return {} },
@@ -53,26 +49,22 @@ export default {
   beforeDestroy () { },
 
   // ---- ---- ---- ---- ---- 方法
-  methods: {
-    onClickLeft () {
-      // Toast('返回');
-    },
-    onClickRight () {
-      // Toast('按钮');
-    },
-  }
+  methods: {}
 }
 </script>
 
 <style lang="less" scoped>
-.navbar {
-  background-color: @bg;
-  height: 44px;
+.loaderr {
+  display: flex;
+  flex-direction: column;
 }
-
-.navbarRes {
-  border: 1px solid;
-  border-radius: 50%;
-  padding: 2px;
+.loaderrContent {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.loaderrImg {
+  padding-bottom: 200px;
 }
 </style>

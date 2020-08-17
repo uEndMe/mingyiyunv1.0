@@ -19,16 +19,6 @@ const routes = [
     component: () => import("../views/home/VHome")
   },
   {
-    path: "/classify",
-    name: "classify",
-    component: () => import("../views/classify/VClassify")
-  },
-  {
-    path: "/live",
-    name: "live",
-    component: () => import("../views/LiveClass.vue")
-  },
-  {
     path: "/plaza",
     name: "plaza",
     component: () => import("../views/plaza/VPlaza")
@@ -47,7 +37,23 @@ const routes = [
     path: "/me",
     name: "me",
     component: () => import("../views/me/VMe")
+  },
+  // home
+  {
+    path: "/classify",
+    name: "classify",
+    component: () => import("../views/classify/VClassify")
+  },
+  {
+    path: "/article/:id",
+    name: "article",
+    component: () => import("../views/article/VArticle")
   }
+  /* {
+    path: "/live",
+    name: "live",
+    component: () => import("../views/LiveClass.vue")
+  }, */
 ];
 
 const router = new VueRouter({

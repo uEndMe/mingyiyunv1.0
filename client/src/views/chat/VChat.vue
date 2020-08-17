@@ -2,16 +2,17 @@
   <section class="bg">
     社交
     <!-- 底部 -->
-    <ComFooter :active="+3" />
+    <ComFooter />
   </section>
 </template>
 
 <script>
+import ComFooter from "@/components/common/ComFooter.vue";
 export default {
   // ---- ---- ---- ---- ---- 【组件信息】 ---- ---- ---- ---- ----
   name: 'VChat',
   mixins: [],
-  components: {},
+  components: { ComFooter },
 
   // ---- ---- ---- ---- ---- 【响应数据】 ---- ---- ---- ---- ----
 

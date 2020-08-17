@@ -69,13 +69,14 @@
   </div>
 </template>
 <script>
-import Vue from 'vue';
-import { mapState, mapGetters } from 'vuex';
 import product from '@/components/ProductComponent.vue';
 import ImAdmin from '@/components/IMAdminComponent.vue';
 import ImMember from '@/components/IMMemberComponent.vue';
 import ImField from '@/components/IMInputComponent.vue';
 import { Tab, Tabs, Image as VanImage, Card, Button } from 'vant';
+
+import Vue from 'vue';
+import { mapState, mapGetters } from 'vuex';
 import { getUrlKey, isValidFlv } from '@/utils/common';
 import TWebLive from 'tweblive';
 export default {

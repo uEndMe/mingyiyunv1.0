@@ -23,7 +23,7 @@
       </div>
     </keep-alive>
     <!-- 底部 -->
-    <ComFooter :active="+0" />
+    <ComFooter />
   </section>
 </template>
 <script>
@@ -41,18 +41,20 @@ import { Sticky } from "vant";
 export default {
   name: "VHome",
   components: {
-    [Sticky.name]: Sticky, // 头部粘性布局
-    ComFooter, // 头部
     SliderTab, // 滑块
+    ComFooter, // 尾部
     ComSearch, // 搜索
+
     SearchMore, // 搜索展开
     HomeSwipe, // 轮播
     HomeGrid, // 4图标
     HomeCourse, // 课程
-    HomeUpdate // 更新
+    HomeUpdate, // 更新
+    [Sticky.name]: Sticky, // 头部粘性布局
   },
   data () {
     return {
+      start: 1,
       openSearch: false,  // 展开：搜索面板
       showClassify: true, // 显示：更多频道按钮
       nav: [

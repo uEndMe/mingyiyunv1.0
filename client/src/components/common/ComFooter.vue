@@ -1,6 +1,7 @@
 <template>
-  <van-tabbar v-model="active"
-              :route="true"
+
+  <van-tabbar :route="true"
+              v-model="active"
               inactive-color="#000"
               class="footer">
     <van-tabbar-item to="/home"
@@ -31,12 +32,13 @@ export default {
 
   // ---- ---- ---- ---- ---- 道具
   props: {
-    active: Number,
+    start: Number,
   },
 
   // ---- ---- ---- ---- ---- 数据
   data () {
     return {
+      active: 0,
     };
   },
 

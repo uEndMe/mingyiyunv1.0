@@ -1,18 +1,19 @@
 <template>
-  <section class="bg">
-    发布
-    <!-- 底部 -->
-    <ComFooter />
-  </section>
+  <div class="loading">
+    <van-loading color="#1989fa"
+                 size="24px">加载中...</van-loading>
+  </div>
 </template>
 
 <script>
-import ComFooter from "@/components/common/ComFooter.vue";
+import { Loading } from 'vant';
 export default {
   // ---- ---- ---- ---- ---- 【组件信息】 ---- ---- ---- ---- ----
-  name: 'VPpublish',
+  name: 'ComLoading',
   mixins: [],
-  components: { ComFooter },
+  components: {
+    [Loading.name]: Loading
+  },
 
   // ---- ---- ---- ---- ---- 【响应数据】 ---- ---- ---- ---- ----
 
@@ -45,4 +46,9 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 </style>

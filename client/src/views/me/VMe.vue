@@ -1,26 +1,18 @@
 <template>
-  <section class="bgxx">
-    <!-- 我的 -->
+  <section class="bg">
+    我的
     <!-- 底部 -->
-    <!-- <ComFooter :active="+4" /> -->
-
-    <header style="backgro">头部</header>
-    <section class="box">
-      <div class="main">
-        <div v-for="i in 100"
-             :key="i">{{i}}</div>
-      </div>
-    </section>
-    <footer>底部</footer>
+    <ComFooter />
   </section>
 </template>
 
 <script>
+import ComFooter from "@/components/common/ComFooter.vue";
 export default {
   // ---- ---- ---- ---- ---- 【组件信息】 ---- ---- ---- ---- ----
   name: 'VMe',
   mixins: [],
-  components: {},
+  components: { ComFooter },
 
   // ---- ---- ---- ---- ---- 【响应数据】 ---- ---- ---- ---- ----
 
@@ -53,26 +45,4 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.bgxx {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-header,
-footer {
-  border: 1px solid #ccc;
-  background-color: #eef;
-  height: 40px;
-}
-.box {
-  height: 100%;
-  border: 1px solid #ccc;
-  // overflow-y: scroll;
-  overflow: hidden;
-}
-.main {
-  border: 1px solid #ccc;
-  height: 2000px;
-  background-color: #fee;
-}
 </style>

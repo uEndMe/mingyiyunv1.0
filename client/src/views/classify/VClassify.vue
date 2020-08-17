@@ -1,6 +1,7 @@
 <template>
   <div class="bg">
-    <ComNavbar title="分类频道" />
+    <ComHeader title="分类频道"
+               right="编辑" />
     <div class="classifyMain">
       <p class="h3">我的分类</p>
       <ul class="classifyMy">
@@ -21,13 +22,13 @@
 </template>
 
 <script>
-import ComNavbar from '@/components/common/ComNavbar'
+import ComHeader from '@/components/common/ComHeader'
 import ClassifyTag from './ClassifyTag'
 export default {
   // ---- ---- ---- ---- ---- 【组件信息】 ---- ---- ---- ---- ----
   name: 'VClassify',
   mixins: [],
-  components: { ComNavbar, ClassifyTag },
+  components: { ComHeader, ClassifyTag },
 
   // ---- ---- ---- ---- ---- 【响应数据】 ---- ---- ---- ---- ----
 

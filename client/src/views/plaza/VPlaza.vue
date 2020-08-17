@@ -2,7 +2,7 @@
   <section class="bg">
     广场
     <!-- 底部 -->
-    <ComFooter :active="+1" />
+    <ComFooter />
   </section>
 </template>
 
