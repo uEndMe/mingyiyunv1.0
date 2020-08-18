@@ -5,7 +5,7 @@
               @click="$router.go(-1)" />
     <input type="text"
            placeholder="说点什么..."
-           @focus="show = true"
+           @focus="popupInput"
            class="footerInput footerItem">
     <van-icon name="chat-o"
               :badge="chatCount"
@@ -14,7 +14,6 @@
               class="footerItem" />
     <van-icon name="cluster-o"
               class="footerItem" />
-    <button @click="show=true">弹出</button>
 
     <!-- 弹出输入框 -->
     <van-popup v-model="show"
@@ -23,6 +22,7 @@
             method="get"
             class="footerForm">
         <textarea class="footerTextarea"
+                  ref="textarea"
                   :autofocus="show"
                   v-model="value"
                   placeholder="说点什么..."
@@ -84,7 +84,13 @@ export default {
   beforeDestroy () { },
 
   // ---- ---- ---- ---- ---- 方法
-  methods: {}
+  methods: {
+    async popupInput () {
+      this.show = true;
+      await this.$nextTick()
+      this.$refs.textarea.focus();
+    }
+  }
 }
 </script>
 
@@ -97,7 +103,7 @@ export default {
   padding: 0 20px;
   align-items: center;
   font-size: 20px;
-  height: 128px;
+  height: 48px;
   color: @minor;
   background-color: @bg;
 }
@@ -127,18 +133,16 @@ export default {
 .footerTextarea {
   box-sizing: border-box;
   width: 100%;
-  height: 128px;
-  padding: 20px;
+  padding: 20px 20px 0 20px;
   border: 0;
   resize: none;
 }
 .footerSubmitBox {
-  // height: 10px;
   font-size: 14px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
+  padding: 12px 20px 20px 20px;
 }
 .footerSubmit {
   width: 80px;

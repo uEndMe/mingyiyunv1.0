@@ -38,6 +38,7 @@ const routes = [
     name: "me",
     component: () => import("../views/me/VMe")
   },
+
   // home
   {
     path: "/classify",
@@ -48,7 +49,18 @@ const routes = [
     path: "/article/:id",
     name: "article",
     component: () => import("../views/article/VArticle")
+  },
+
+  // plaza
+  // publish
+  // chat
+  {
+    path: "/friend",
+    name: "friend",
+    component: () => import("../views/friend/VFriend")
   }
+
+  // me
   /* {
     path: "/live",
     name: "live",

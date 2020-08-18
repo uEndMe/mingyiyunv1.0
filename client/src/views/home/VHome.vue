@@ -1,5 +1,9 @@
 <template>
-  <section class="bg">
+  <ComLoading v-if="state.loading"
+              class="bg">
+  </ComLoading>
+  <section v-else-if="state.loaded"
+           class="bg">
     <!-- 搜索 -->
     <van-sticky>
       <ComSearch :showClassify="showClassify"
@@ -27,6 +31,7 @@
   </section>
 </template>
 <script>
+import ComLoading from "@/components/common/ComLoading.vue";
 import SliderTab from "@/components/SliderTabComponent.vue";
 import ComFooter from "@/components/common/ComFooter.vue";
 import ComSearch from "@/components/common/ComSearch";
@@ -41,6 +46,7 @@ import { Sticky } from "vant";
 export default {
   name: "VHome",
   components: {
+    ComLoading, // 加载中...
     SliderTab, // 滑块
     ComFooter, // 尾部
     ComSearch, // 搜索
@@ -54,6 +60,7 @@ export default {
   },
   data () {
     return {
+      state: { init: true },
       start: 1,
       openSearch: false,  // 展开：搜索面板
       showClassify: true, // 显示：更多频道按钮
@@ -83,7 +90,15 @@ export default {
   // ---- ---- ---- ---- ---- 【生命周期】 ---- ---- ---- ---- ----
 
   // ---- ---- ---- ---- ---- 创造
-  // created() {},
+  created () {
+    // req()
+    // 模拟加载
+    this.state = { loading: true }
+    setTimeout(() => {
+      this.state = { loaded: true }
+      // this.state = { loaderr: true }
+    }, 500)
+  },
 
   // ---- ---- ---- ---- ---- 挂载
   // mounted() {},

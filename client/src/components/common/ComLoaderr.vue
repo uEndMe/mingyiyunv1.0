@@ -1,3 +1,5 @@
+<!-- 使用拦截器，跳转对应错误页面 -->
+<!-- 这应该是一个页面，而不是公共组件 -->
 <template>
   <div class="bg loaderr">
     <ComHeader title="加载失败" />

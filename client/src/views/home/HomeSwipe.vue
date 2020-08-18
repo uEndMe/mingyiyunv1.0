@@ -1,7 +1,13 @@
 <template>
-  <van-swipe class="my-swipe" :autoplay="3000" azy-render="true" indicator-color="white">
-    <van-swipe-item v-for="(image, index) in images" class="swipeItem" :key="index">
-      <img v-lazy="image" class="swipeImg" />
+  <van-swipe class="my-swipe"
+             :autoplay="3000"
+             azy-render="true"
+             indicator-color="white">
+    <van-swipe-item v-for="(image, index) in images"
+                    class="swipeItem"
+                    :key="index">
+      <img v-lazy="image"
+           class="swipeImg" />
     </van-swipe-item>
   </van-swipe>
 </template>
@@ -24,7 +30,7 @@ export default {
   props: {},
 
   // ---- ---- ---- ---- ---- 数据
-  data() {
+  data () {
     return {
       images: ["https://img.yzcdn.cn/vant/tree.jpg", "https://img.yzcdn.cn/vant/cat.jpeg"]
     };
@@ -39,13 +45,13 @@ export default {
   // ---- ---- ---- ---- ---- 【生命周期】 ---- ---- ---- ---- ----
 
   // ---- ---- ---- ---- ---- 创造
-  created() {},
+  created () { },
 
   // ---- ---- ---- ---- ---- 挂载
-  mounted() {},
+  mounted () { },
 
   // ---- ---- ---- ---- ---- 销毁
-  beforeDestroy() {}
+  beforeDestroy () { }
 };
 </script>
 
@@ -55,7 +61,7 @@ export default {
   font-size: 20px;
   line-height: 150px;
   text-align: center;
-  background-color: #39a9ed;
+  background-color: #fafafa;
 }
 .swipeItem,
 .swipeImg {

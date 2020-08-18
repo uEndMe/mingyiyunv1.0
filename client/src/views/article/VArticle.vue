@@ -2,10 +2,11 @@
   <ComLoading v-if="state.loading"
               class="bg">
   </ComLoading>
-  <ComLoaderr v-else-if="state.loaderr"
+  <!-- 使用拦截器，跳转对应错误页面 -->
+  <!-- <ComLoaderr v-else-if="state.loaderr"
               class="bg"
               @click.native="load">
-  </ComLoaderr>
+  </ComLoaderr> -->
   <div v-else-if="state.loaded"
        class="bg article">
     <!-- 滚动窗口 -->
@@ -52,7 +53,6 @@
 import { Button } from 'vant';
 
 import ComLoading from '@/components/common/ComLoading'
-import ComLoaderr from '@/components/common/ComLoaderr'
 
 import ArticleUser from './user/ArticleUser'
 import ArticleChat from './chat/ArticleChat';
@@ -64,7 +64,6 @@ export default {
   components: {
     [Button.name]: Button,
     ComLoading,
-    ComLoaderr,
     ArticleUser,
     ArticleChat,
     ArticleFooter,
@@ -144,7 +143,13 @@ export default {
 
   // ---- ---- ---- ---- ---- 创造
   created () {
-    this.load();
+    // req($route.params.id)
+    // 模拟加载
+    this.state = { loading: true }
+    setTimeout(() => {
+      this.state = { loaded: true }
+      // this.state = { loaderr: true }
+    }, 500)
   },
 
   // ---- ---- ---- ---- ---- 挂载
@@ -155,15 +160,6 @@ export default {
 
   // ---- ---- ---- ---- ---- 方法
   methods: {
-    load () {
-      // req($route.params.id)
-      // 模拟加载
-      this.state = { loading: true }
-      setTimeout(() => {
-        this.state = { loaded: true }
-        // this.state = { loaderr: true }
-      }, 1000)
-    }
   }
 }
 </script>
@@ -174,6 +170,7 @@ export default {
   flex-direction: column;
 }
 .articleMain {
+  flex: 1;
   padding: 20px;
   overflow-y: scroll;
 }

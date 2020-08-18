@@ -17,6 +17,7 @@ i           home        search 下拉页面
 i           article     文章页面
 update      article     弹出输入框 实现中...
 
-
+>> 0818
+i           friend      好友页面
 
 ```
