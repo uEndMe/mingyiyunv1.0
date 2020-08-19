@@ -68,14 +68,14 @@ const routes = [
     path: "/friend",
     name: "friend",
     component: () => import("../views/friend/VFriend")
-  },
+  }
 
   // me
-  {
+  /* {
     path: "/live",
     name: "live",
     component: () => import("../views/LiveClass.vue")
-  }
+  } */
 ];
 
 const router = new VueRouter({
