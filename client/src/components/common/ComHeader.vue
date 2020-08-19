@@ -1,13 +1,20 @@
 <template>
+  <!-- 头部标题栏 -->
   <van-nav-bar class="navbar "
                :title="title"
                :right-text="right"
                left-arrow
-               @click-left="$router.go(-1)"
+               @click-left="onClickLeft"
                @click-right="onClickRight">
     <template #left>
       <van-icon class="navbarRes"
                 name="arrow-left"
+                size="20" />
+    </template>
+    <template #right
+              v-if="rightIcon">
+      <van-icon class="navbarRes"
+                :name="rightIcon"
                 size="20" />
     </template>
 
@@ -32,6 +39,16 @@ export default {
   props: {
     title: String, // 标题
     right: String, // 右边
+
+    // 可选
+    rightIcon: { // 右边图标
+      type: String,
+      default: null,
+    },
+    onLeft: { // 返回事件
+      type: Function,
+      default: null,
+    }
   },
 
   // ---- ---- ---- ---- ---- 数据
@@ -58,6 +75,9 @@ export default {
   methods: {
     onClickLeft () {
       // Toast('返回');
+      this.onLeft
+        ? this.onLeft()
+        : this.$router.go(-1);
     },
     onClickRight () {
       // Toast('按钮');
@@ -72,7 +92,7 @@ export default {
   height: 44px;
 }
 
-.navbarRes {
+.navbar .navbarRes {
   // border: 1px solid;
   border-radius: 50%;
   padding: 2px;

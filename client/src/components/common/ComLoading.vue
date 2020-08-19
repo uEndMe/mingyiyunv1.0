@@ -1,4 +1,5 @@
 <template>
+  <!-- 过渡页，加载中... -->
   <div class="loading">
     <van-loading color="#1989fa"
                  size="24px">加载中...</van-loading>

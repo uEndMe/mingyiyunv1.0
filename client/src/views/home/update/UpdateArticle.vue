@@ -2,27 +2,27 @@
   <article class="article main-line-bottom">
     <div class="articleMain">
       <img class="articleImg"
-           src="https://img.yzcdn.cn/vant/sand.jpg"
+           :src="data.poster"
            alt="" />
       <div class="articleContent">
-        <p class="articleTitle">内容名称</p>
+        <p class="articleTitle">{{data.title}}</p>
         <div class="articleTxt">
-          <p>这是一段描述</p>
+          <p>{{data.name}}</p>
           <div class="articleTag">
-            <van-tag v-for="i in 2"
-                     :key="i"
+            <van-tag v-for="(i,j) in data.tags"
+                     :key="j"
                      color="#eee"
-                     text-color="#888">这是标签</van-tag>
+                     text-color="#888">{{i}}</van-tag>
           </div>
         </div>
         <div>
           <span class="articleIcon">
             <i class="inner van-icon van-icon-like-o" />
-            <span class="articleIconTxt">6666</span>
+            <span class="articleIconTxt">{{stringify(data.good)}}</span>
           </span>
           <span class="articleIcon">
             <i class="inner van-icon van-icon-eye-o" />
-            <span class="articleIconTxt">1.1w</span>
+            <span class="articleIconTxt">{{stringify(data.look)}}</span>
           </span>
         </div>
       </div>
@@ -44,7 +44,7 @@ export default {
 
   // ---- ---- ---- ---- ---- 道具
   props: {
-    id: Number,
+    data: Object, // 数据
   },
 
   // ---- ---- ---- ---- ---- 数据
@@ -67,7 +67,15 @@ export default {
   mounted () { },
 
   // ---- ---- ---- ---- ---- 销毁
-  beforeDestroy () { }
+  beforeDestroy () { },
+
+  // ---- ---- ---- ---- ---- 方法
+  methods: {
+    stringify (n) {
+      if (n < 10000) return n
+      return (n - n % 1000) / 10000 + 'w'
+    }
+  }
 };
 </script>
 

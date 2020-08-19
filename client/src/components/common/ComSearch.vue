@@ -1,4 +1,5 @@
 <template>
+  <!-- 搜索栏 -->
   <van-search class="search"
               shape="round"
               show-action

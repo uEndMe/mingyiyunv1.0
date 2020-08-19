@@ -50,6 +50,16 @@ const routes = [
     name: "article",
     component: () => import("../views/article/VArticle")
   },
+  {
+    path: "/mp3/:id",
+    name: "mp3",
+    component: () => import("../views/article/VMp3")
+  },
+  {
+    path: "/mp4/:id",
+    name: "mp4",
+    component: () => import("../views/article/VMp4")
+  },
 
   // plaza
   // publish
@@ -58,14 +68,14 @@ const routes = [
     path: "/friend",
     name: "friend",
     component: () => import("../views/friend/VFriend")
-  }
+  },
 
   // me
-  /* {
+  {
     path: "/live",
     name: "live",
     component: () => import("../views/LiveClass.vue")
-  }, */
+  }
 ];
 
 const router = new VueRouter({

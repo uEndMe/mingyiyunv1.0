@@ -3,15 +3,19 @@
     <img :src="data.icon"
          alt=""
          class="chatImg">
-    <div class="chatContent main-line-bottom">
-      <div class="chatUser">
-        <p class="chatName">{{data.name}}</p>
-        <p class="chatTxt">{{data.txt}}</p>
+    <div class="chatMain main-line-bottom">
+      <div class="chatContent">
+        <div class="chatUser">
+          <p class="chatName">{{data.name}}</p>
+          <p class="chatTxt">{{data.txt}}</p>
+        </div>
+        <p>
+          <i class="chatGood inner van-icon van-icon-good-job-o" />
+          <span>{{data.good}}</span>
+        </p>
       </div>
-      <p>
-        <i class="chatGood inner van-icon van-icon-good-job-o" />
-        <span>{{data.good}}</span>
-      </p>
+      <!-- 回复 -->
+      <slot name="reply"></slot>
     </div>
   </article>
 </template>
@@ -61,13 +65,16 @@ export default {
   margin-bottom: 20px;
 }
 .chatImg {
+  flex: none;
+  margin-right: 12px;
   width: 32px;
   height: 32px;
   border-radius: 50%;
 }
+.chatMain {
+  flex: auto;
+}
 .chatContent {
-  flex: 1;
-  margin-left: 12px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -79,9 +86,11 @@ export default {
 }
 .chatName {
   margin-bottom: 12px;
+  color: @minor;
 }
 .chatTxt {
   margin-bottom: 12px;
+  font-size: 16px;
 }
 .chatGood {
   margin-right: 4px;

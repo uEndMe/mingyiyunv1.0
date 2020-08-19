@@ -1,5 +1,5 @@
 <template>
-
+  <!-- 底部路由切换 -->
   <van-tabbar :route="true"
               v-model="active"
               inactive-color="#000"

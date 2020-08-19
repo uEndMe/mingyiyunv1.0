@@ -23,7 +23,8 @@
         <!-- 课程 -->
         <HomeCourse />
         <!-- 文章 -->
-        <HomeUpdate class="homeMore" />
+        <HomeUpdate class="homeMore"
+                    :data="updataList" />
       </div>
     </keep-alive>
     <!-- 底部 -->
@@ -77,7 +78,46 @@ export default {
         { name: "新知", path: "" },
         { name: "直播", path: "" },
         { name: "VOD", path: "" }
-      ]
+      ],
+      updataList: [
+        {
+          id: 1,
+          type: 'article',
+          title: '关于等多个的研究',
+          poster: 'https://img.yzcdn.cn/vant/sand.jpg',
+          name: '张文光',
+          tags: ['专科医师', '特邀嘉宾'],
+          good: 3210,
+          look: 29000,
+        }, {
+          id: 2,
+          type: 'mp3',
+          title: '只是一段音频音频音频',
+          poster: 'https://img.yzcdn.cn/vant/sand.jpg',
+          name: '张文光',
+          tags: ['专科医师'],
+          good: 2000,
+          look: 3600,
+        }, {
+          id: 3,
+          type: 'mp4',
+          title: '这是一段视频',
+          poster: 'https://img.yzcdn.cn/vant/sand.jpg',
+          name: '张文光',
+          tags: ['专科医师', '特邀嘉宾'],
+          good: 3210,
+          look: 2000,
+        }, {
+          id: 4,
+          type: 'article',
+          title: '关于等多个的研究',
+          poster: 'https://img.yzcdn.cn/vant/sand.jpg',
+          name: '张文光',
+          tags: ['专科医师', '特邀嘉宾'],
+          good: 3210,
+          look: 29000,
+        },
+      ],
     };
   },
 
