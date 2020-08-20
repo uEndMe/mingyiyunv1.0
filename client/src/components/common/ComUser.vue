@@ -4,50 +4,61 @@
     <!-- 左 -->
     <div class="userInfo">
       <!-- 头像 -->
-      <img :src="data.icon"
-           class="userIcon"
-           alt="头像">
+      <img
+        :src="data.icon"
+        @click="$router.push('/friend/' + data.id)"
+        class="userIcon"
+        alt="头像"
+      />
       <!-- 用户名 -->
       <div class="userContent">
         <p class="userName">
-          <span>{{data.name}}</span>
-          <van-tag class="userTag"
-                   v-for="(i,j) in data.tag"
-                   :key="j"
-                   color="#ececec"
-                   text-color="#535353">{{i}}</van-tag>
+          <span>{{ data.name }}</span>
+          <van-tag
+            class="userTag"
+            v-for="(i, j) in data.tag"
+            :key="j"
+            color="#ececec"
+            text-color="#535353"
+            >{{ i }}</van-tag
+          >
         </p>
-        <p class="userTime">{{data.time}}</p>
+        <p class="userTime">{{ data.time }}</p>
       </div>
     </div>
     <!-- 右 -->
-    <van-button type="default"
-                class="userFocus"
-                :class="{userIsFocus:data.focus}"
-                @click="focusUser">{{data.focus ? '已关注' : '关注'}} </van-button>
+    <van-button
+      type="default"
+      class="userFocus"
+      :class="{ userIsFocus: data.focus }"
+      @click="focusUser"
+      >{{ data.focus ? "已关注" : "关注" }}
+    </van-button>
   </div>
 </template>
 
 <script>
-import { Button, Tag } from 'vant';
+import { Button, Tag } from "vant";
 export default {
   // ---- ---- ---- ---- ---- 【组件信息】 ---- ---- ---- ---- ----
-  name: '',
+  name: "ComUser",
   mixins: [],
   components: {
     [Button.name]: Button,
-    [Tag.name]: Tag,
+    [Tag.name]: Tag
   },
 
   // ---- ---- ---- ---- ---- 【响应数据】 ---- ---- ---- ---- ----
 
   // ---- ---- ---- ---- ---- 道具
   props: {
-    data: Object,
+    data: Object // id,name,icon,tag,time,focus 用户数据
   },
 
   // ---- ---- ---- ---- ---- 数据
-  data () { return {} },
+  data() {
+    return {};
+  },
 
   // ---- ---- ---- ---- ---- 计算
   computed: {},
@@ -58,22 +69,22 @@ export default {
   // ---- ---- ---- ---- ---- 【生命周期】 ---- ---- ---- ---- ----
 
   // ---- ---- ---- ---- ---- 创造
-  created () { },
+  created() {},
 
   // ---- ---- ---- ---- ---- 挂载
-  mounted () { },
+  mounted() {},
 
   // ---- ---- ---- ---- ---- 销毁
-  beforeDestroy () { },
+  beforeDestroy() {},
 
   // ---- ---- ---- ---- ---- 方法
   methods: {
-    focusUser () {
-      this.data.focus = !this.data.focus
+    focusUser() {
+      this.data.focus = !this.data.focus;
       // req(...)
-    },
+    }
   }
-}
+};
 </script>
 
 <style lang="less" scoped>
@@ -82,7 +93,6 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 30px;
 }
 .userInfo {
   display: flex;
@@ -115,9 +125,11 @@ export default {
   font-size: 12px;
   color: @minor;
 }
+// 关注
 .userFocus {
-  width: 88px;
-  height: 30px;
+  width: 60px;
+  height: 28px;
+  padding: 0;
   border-radius: 4px;
   font-size: 12px;
 }

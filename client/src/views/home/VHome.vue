@@ -1,21 +1,16 @@
 <template>
-  <ComLoading v-if="state.loading"
-              class="bg">
-  </ComLoading>
-  <section v-else-if="state.loaded"
-           class="bg">
+  <ComLoading v-if="state.loading" class="bg"> </ComLoading>
+  <section v-else-if="state.loaded" class="bg">
     <!-- 搜索 -->
     <van-sticky>
-      <ComSearch :showClassify="showClassify"
-                 :expSearch="expSearch" />
+      <ComSearch :showClassify="showClassify" :expSearch="expSearch" />
     </van-sticky>
     <!-- 搜索展开 -->
     <keep-alive>
       <SearchMore v-if="openSearch" />
       <div v-else>
         <!-- 导航 -->
-        <slider-tab :data="nav"
-                    class="van-hairline--bottom" />
+        <slider-tab :data="nav" class="van-hairline--bottom" />
         <!-- 轮播 -->
         <HomeSwipe />
         <!-- 选项 -->
@@ -23,8 +18,7 @@
         <!-- 课程 -->
         <HomeCourse />
         <!-- 文章 -->
-        <HomeUpdate class="homeMore"
-                    :data="updataList" />
+        <HomeUpdate class="homeMore" :data="updataList" />
       </div>
     </keep-alive>
     <!-- 底部 -->
@@ -59,13 +53,13 @@ export default {
     HomeGrid, // 4图标
     HomeCourse, // 课程
     HomeUpdate, // 更新
-    [Sticky.name]: Sticky, // 头部粘性布局
+    [Sticky.name]: Sticky // 头部粘性布局
   },
-  data () {
+  data() {
     return {
       state: { init: true },
       start: 1,
-      openSearch: false,  // 展开：搜索面板
+      openSearch: false, // 展开：搜索面板
       showClassify: true, // 显示：更多频道按钮
       nav: [
         { name: "推荐", path: "" },
@@ -84,42 +78,45 @@ export default {
       updataList: [
         {
           id: 1,
-          type: 'article',
-          title: '关于等多个的研究',
-          poster: 'https://img.yzcdn.cn/vant/sand.jpg',
-          name: '张文光',
-          tags: ['专科医师', '特邀嘉宾'],
+          type: "article",
+          title: "关于等多个的研究",
+          poster: "https://img.yzcdn.cn/vant/sand.jpg",
+          name: "张文光",
+          tags: ["专科医师", "特邀嘉宾"],
           good: 3210,
-          look: 29000,
-        }, {
-          id: 2,
-          type: 'mp3',
-          title: '只是一段音频音频音频',
-          poster: 'https://img.yzcdn.cn/vant/sand.jpg',
-          name: '张文光',
-          tags: ['专科医师'],
-          good: 2000,
-          look: 3600,
-        }, {
-          id: 3,
-          type: 'mp4',
-          title: '这是一段视频',
-          poster: 'https://img.yzcdn.cn/vant/sand.jpg',
-          name: '张文光',
-          tags: ['专科医师', '特邀嘉宾'],
-          good: 3210,
-          look: 2000,
-        }, {
-          id: 4,
-          type: 'article',
-          title: '关于等多个的研究',
-          poster: 'https://img.yzcdn.cn/vant/sand.jpg',
-          name: '张文光',
-          tags: ['专科医师', '特邀嘉宾'],
-          good: 3210,
-          look: 29000,
+          look: 29000
         },
-      ],
+        {
+          id: 2,
+          type: "mp3",
+          title: "只是一段音频音频音频",
+          poster: "https://img.yzcdn.cn/vant/sand.jpg",
+          name: "张文光",
+          tags: ["专科医师"],
+          good: 2000,
+          look: 3600
+        },
+        {
+          id: 3,
+          type: "mp4",
+          title: "这是一段视频",
+          poster: "https://img.yzcdn.cn/vant/sand.jpg",
+          name: "张文光",
+          tags: ["专科医师", "特邀嘉宾"],
+          good: 3210,
+          look: 2000
+        },
+        {
+          id: 4,
+          type: "article",
+          title: "关于等多个的研究",
+          poster: "https://img.yzcdn.cn/vant/sand.jpg",
+          name: "张文光",
+          tags: ["专科医师", "特邀嘉宾"],
+          good: 3210,
+          look: 29000
+        }
+      ]
     };
   },
 
@@ -132,14 +129,14 @@ export default {
   // ---- ---- ---- ---- ---- 【生命周期】 ---- ---- ---- ---- ----
 
   // ---- ---- ---- ---- ---- 创造
-  created () {
+  created() {
     // req()
     // 模拟加载
-    this.state = { loading: true }
-    setTimeout(() => {
-      this.state = { loaded: true }
+    this.state = { loaded: true };
+    /* setTimeout(() => {
+      this.state = { loaded: true };
       // this.state = { loaderr: true }
-    }, 500)
+    }); */
   },
 
   // ---- ---- ---- ---- ---- 挂载
@@ -148,7 +145,7 @@ export default {
   // ---- ---- ---- ---- ---- 销毁
   // beforeDestroy() {}
   methods: {
-    expSearch (val) {
+    expSearch(val) {
       this.showClassify = !val;
       this.openSearch = val;
     }
@@ -156,7 +153,7 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-.homeMore {
+/* .homeMore {
   padding-bottom: 52px;
-}
+} */
 </style>

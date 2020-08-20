@@ -1,19 +1,11 @@
 <template>
   <!-- 底部路由切换 -->
-  <van-tabbar :route="true"
-              v-model="active"
-              inactive-color="#000"
-              class="footer">
-    <van-tabbar-item to="/home"
-                     icon="star">首页</van-tabbar-item>
-    <van-tabbar-item to="/plaza"
-                     icon="star">广场</van-tabbar-item>
-    <van-tabbar-item to="/publish"
-                     icon="star">发布</van-tabbar-item>
-    <van-tabbar-item to="/chat"
-                     icon="star">社交</van-tabbar-item>
-    <van-tabbar-item to="/me"
-                     icon="star">我</van-tabbar-item>
+  <van-tabbar :route="true" v-model="active" inactive-color="#000" placeholder class="footer">
+    <van-tabbar-item class="footerItem" to="/home" icon="star">首页</van-tabbar-item>
+    <van-tabbar-item class="footerItem" to="/plaza" icon="star">广场</van-tabbar-item>
+    <van-tabbar-item class="footerItem" to="/publish" icon="star">发布</van-tabbar-item>
+    <van-tabbar-item class="footerItem" to="/chat" icon="star">社交</van-tabbar-item>
+    <van-tabbar-item class="footerItem" to="/me" icon="star">我</van-tabbar-item>
   </van-tabbar>
 </template>
 
@@ -32,13 +24,13 @@ export default {
 
   // ---- ---- ---- ---- ---- 道具
   props: {
-    start: Number,
+    start: Number
   },
 
   // ---- ---- ---- ---- ---- 数据
-  data () {
+  data() {
     return {
-      active: 0,
+      active: 0
     };
   },
 
@@ -51,18 +43,18 @@ export default {
   // ---- ---- ---- ---- ---- 【生命周期】 ---- ---- ---- ---- ----
 
   // ---- ---- ---- ---- ---- 创造
-  created () { },
+  created() {},
 
   // ---- ---- ---- ---- ---- 挂载
-  mounted () { },
+  mounted() {},
 
   // ---- ---- ---- ---- ---- 销毁
-  beforeDestroy () { }
+  beforeDestroy() {}
 };
 </script>
 
 <style lang="less" scoped>
-.footer {
+.footerItem {
   background-color: @bg8;
 }
 </style>

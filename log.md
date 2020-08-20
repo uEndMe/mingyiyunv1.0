@@ -22,9 +22,11 @@ i           friend      完成好友页面
 i           chat        完成评论页面
 
 >> 0819
-bug vant css 顺序警告
-没有注册
+i           npm3        音频页面
+i           npm4        视频页面
 
-在 article 注册了所有vant (需撤销？)
-测试home，vant 引入方式
+>> 0820
+
+
+
 ```

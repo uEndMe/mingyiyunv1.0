@@ -1,36 +1,30 @@
 <template>
   <!-- 头部标题栏 -->
-  <van-nav-bar class="navbar "
-               :title="title"
-               :right-text="right"
-               left-arrow
-               @click-left="onClickLeft"
-               @click-right="onClickRight">
-    <template #left>
-      <van-icon class="navbarRes"
-                name="arrow-left"
-                size="20" />
+  <van-nav-bar
+    class="navbar "
+    :title="title"
+    :right-text="right"
+    @click-left="onClickLeft"
+    @click-right="onClickRight"
+  >
+    <template #left v-if="leftIcon">
+      <van-icon class="navbarRes" :name="leftIcon" size="20" />
     </template>
-    <template #right
-              v-if="rightIcon">
-      <van-icon class="navbarRes"
-                :name="rightIcon"
-                size="20" />
+    <template #right v-if="rightIcon">
+      <van-icon class="navbarRes" :name="rightIcon" size="20" />
     </template>
-
   </van-nav-bar>
-
 </template>
 
 <script>
-import { NavBar, Icon } from 'vant';
+import { NavBar, Icon } from "vant";
 export default {
   // ---- ---- ---- ---- ---- 【组件信息】 ---- ---- ---- ---- ----
-  name: 'ComHeader',
+  name: "ComHeader",
   mixins: [],
   components: {
     [NavBar.name]: NavBar,
-    [Icon.name]: Icon,
+    [Icon.name]: Icon
   },
 
   // ---- ---- ---- ---- ---- 【响应数据】 ---- ---- ---- ---- ----
@@ -41,18 +35,27 @@ export default {
     right: String, // 右边
 
     // 可选
-    rightIcon: { // 右边图标
+    leftIcon: {
+      // 左边图标
       type: String,
-      default: null,
+      default: "arrow-left"
     },
-    onLeft: { // 返回事件
+    rightIcon: {
+      // 右边图标
+      type: String,
+      default: null
+    },
+    onLeft: {
+      // 返回事件
       type: Function,
-      default: null,
+      default: null
     }
   },
 
   // ---- ---- ---- ---- ---- 数据
-  data () { return {} },
+  data() {
+    return {};
+  },
 
   // ---- ---- ---- ---- ---- 计算
   computed: {},
@@ -63,27 +66,25 @@ export default {
   // ---- ---- ---- ---- ---- 【生命周期】 ---- ---- ---- ---- ----
 
   // ---- ---- ---- ---- ---- 创造
-  created () { },
+  created() {},
 
   // ---- ---- ---- ---- ---- 挂载
-  mounted () { },
+  mounted() {},
 
   // ---- ---- ---- ---- ---- 销毁
-  beforeDestroy () { },
+  beforeDestroy() {},
 
   // ---- ---- ---- ---- ---- 方法
   methods: {
-    onClickLeft () {
+    onClickLeft() {
       // Toast('返回');
-      this.onLeft
-        ? this.onLeft()
-        : this.$router.go(-1);
+      this.onLeft ? this.onLeft() : this.$router.go(-1);
     },
-    onClickRight () {
+    onClickRight() {
       // Toast('按钮');
-    },
+    }
   }
-}
+};
 </script>
 
 <style lang="less" scoped>

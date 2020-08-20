@@ -1,16 +1,15 @@
 <template>
   <!-- 过渡页，加载中... -->
   <div class="loading">
-    <van-loading color="#1989fa"
-                 size="24px">加载中...</van-loading>
+    <van-loading color="#1989fa" size="24px">加载中...</van-loading>
   </div>
 </template>
 
 <script>
-import { Loading } from 'vant';
+import { Loading } from "vant";
 export default {
   // ---- ---- ---- ---- ---- 【组件信息】 ---- ---- ---- ---- ----
-  name: 'ComLoading',
+  name: "ComLoading",
   mixins: [],
   components: {
     [Loading.name]: Loading
@@ -22,7 +21,9 @@ export default {
   props: {},
 
   // ---- ---- ---- ---- ---- 数据
-  data () { return {} },
+  data() {
+    return {};
+  },
 
   // ---- ---- ---- ---- ---- 计算
   computed: {},
@@ -33,22 +34,23 @@ export default {
   // ---- ---- ---- ---- ---- 【生命周期】 ---- ---- ---- ---- ----
 
   // ---- ---- ---- ---- ---- 创造
-  created () { },
+  created() {},
 
   // ---- ---- ---- ---- ---- 挂载
-  mounted () { },
+  mounted() {},
 
   // ---- ---- ---- ---- ---- 销毁
-  beforeDestroy () { },
+  beforeDestroy() {},
 
   // ---- ---- ---- ---- ---- 方法
   methods: {}
-}
+};
 </script>
 
 <style lang="less" scoped>
 .loading {
   display: flex;
+  padding: 40px;
   justify-content: center;
   align-items: center;
 }

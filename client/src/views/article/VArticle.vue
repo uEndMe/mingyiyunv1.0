@@ -1,81 +1,72 @@
 <template>
-  <ComLoading v-if="state.loading"
-              class="bg">
-  </ComLoading>
+  <ComLoading v-if="state.loading" class="bg"> </ComLoading>
   <!-- 使用拦截器，跳转对应错误页面 -->
   <!-- <ComLoaderr v-else-if="state.loaderr"
               class="bg"
               @click.native="load">
   </ComLoaderr> -->
-  <div v-else-if="state.loaded"
-       class="bg article">
+  <div v-else-if="state.loaded" class="bg article">
     <!-- 滚动窗口 -->
     <article class="articleMain">
       <!-- 标题 -->
-      <h1 class="articleH1">{{data.title}}</h1>
+      <h1 class="articleH1">{{ data.title }}</h1>
       <!-- 用户信息 -->
-      <ArticleUser :data="data" />
+      <ComUser :data="data" />
       <!-- 描述 -->
       <p class="articleDesc">
-        {{data.desc}}
+        {{ data.desc }}
       </p>
       <!-- 大图 -->
-      <img :src="data.img"
-           alt=""
-           class="articleImg">
+      <img :src="data.img" alt="" class="articleImg" />
       <p class="articleTxt">
-        {{data.txt}}
+        {{ data.txt }}
       </p>
       <!-- 正文 -->
-      <van-button :icon="data.good?'like':'like-o'"
-                  @click="data.good = !data.good"
-                  plain
-                  class="articleGood"
-                  :class="{articleIsGood:data.good}"
-                  type="default">赞</van-button>
+      <van-button
+        :icon="data.good ? 'like' : 'like-o'"
+        @click="data.good = !data.good"
+        plain
+        class="articleGood"
+        :class="{ articleIsGood: data.good }"
+        type="default"
+        >赞</van-button
+      >
       <!-- 评论 -->
-      <h2 class="h2 articleH2 main-line-top">评论&nbsp;（{{data.chat.length}}）</h2>
-      <ArticleChat v-for="i in data.chat"
-                   :key="i.id"
-                   :data="i">
-      </ArticleChat>
+      <h2 class="h2 articleH2 main-line-top">评论&nbsp;（{{ data.chat.length }}）</h2>
+      <ArticleChat v-for="i in data.chat" :key="i.id" :data="i"> </ArticleChat>
     </article>
     <!-- 底部输入框 -->
-    <ArticleFooter class="articleFooter"
-                   :chatCount="data.chat.length"
-                   :showChat="showChat" />
+    <ArticleFooter class="articleFooter" :chatCount="data.chat.length" :showChat="showChat" />
   </div>
   <!-- 所有评论页面 -->
-  <PageChat v-else-if="state.showChat"
-            :data="data.chat"
-            :close="closeChat" />
+  <PageChat v-else-if="state.showChat" :data="data.chat" :close="closeChat" />
 </template>
 
 <script>
-import test from './test.js' // 模拟数据
+import test from "./test.js"; // 模拟数据
 
-import { Button } from 'vant';
+import { Button } from "vant";
 
-import ComLoading from '@/components/common/ComLoading'
+import ComLoading from "@/components/common/ComLoading";
+import ComUser from "@/components/common/ComUser";
 
-import ArticleChat from './chat/ArticleChat';
-import ArticleFooter from './footer/ArticleFooter'
-import ArticleUser from './user/ArticleUser'
+import ArticleChat from "./chat/ArticleChat";
+import ArticleFooter from "./footer/ArticleFooter";
 
-import PageChat from './pageChat/pageChat'
+import PageChat from "./pageChat/pageChat";
 export default {
   // ---- ---- ---- ---- ---- 【组件信息】 ---- ---- ---- ---- ----
-  name: '',
+  name: "VArticle",
   mixins: [],
   components: {
     [Button.name]: Button,
     ComLoading,
+    ComUser,
 
     ArticleChat,
-    ArticleUser,
     ArticleFooter,
 
-    PageChat,
+    PageChat
   },
 
   // ---- ---- ---- ---- ---- 【响应数据】 ---- ---- ---- ---- ----
@@ -84,16 +75,15 @@ export default {
   props: {},
 
   // ---- ---- ---- ---- ---- 数据
-  data () {
+  data() {
     return {
       state: { loading: true },
-      data: {},
-    }
+      data: {}
+    };
   },
 
   // ---- ---- ---- ---- ---- 计算
-  computed: {
-  },
+  computed: {},
 
   // ---- ---- ---- ---- ---- 监视
   watch: {},
@@ -101,33 +91,34 @@ export default {
   // ---- ---- ---- ---- ---- 【生命周期】 ---- ---- ---- ---- ----
 
   // ---- ---- ---- ---- ---- 创造
-  async created () {
+  async created() {
     // req($route.params.id)
     // 模拟加载
-    this.state = { loading: true }
+    this.state = { loading: true };
     setTimeout(() => {
       this.data = test;
-      this.state = { loaded: true }
+      this.data.id = this.$route.params.id; // 模拟id
+      this.state = { loaded: true };
       // this.state = { loaderr: true }
-    }, 500)
+    }, 500);
   },
 
   // ---- ---- ---- ---- ---- 挂载
-  mounted () { },
+  mounted() {},
 
   // ---- ---- ---- ---- ---- 销毁
-  beforeDestroy () { },
+  beforeDestroy() {},
 
   // ---- ---- ---- ---- ---- 方法
   methods: {
-    showChat () {
-      this.state = { showChat: true }
+    showChat() {
+      this.state = { showChat: true };
     },
-    closeChat () {
-      this.state = { loaded: true }
+    closeChat() {
+      this.state = { loaded: true };
     }
   }
-}
+};
 </script>
 
 <style lang="less" scoped>
@@ -150,6 +141,7 @@ export default {
 
 // 副标题
 .articleDesc {
+  margin-top: 30px;
   margin-bottom: 20px;
   padding: 20px;
   font-size: 14px;
