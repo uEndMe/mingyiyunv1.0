@@ -58,9 +58,9 @@ import { Button } from 'vant';
 
 import ComLoading from '@/components/common/ComLoading'
 
-import ArticleUser from './user/ArticleUser'
 import ArticleChat from './chat/ArticleChat';
 import ArticleFooter from './footer/ArticleFooter'
+import ArticleUser from './user/ArticleUser'
 
 import PageChat from './pageChat/pageChat'
 export default {
@@ -70,9 +70,11 @@ export default {
   components: {
     [Button.name]: Button,
     ComLoading,
-    ArticleUser,
+
     ArticleChat,
+    ArticleUser,
     ArticleFooter,
+
     PageChat,
   },
 

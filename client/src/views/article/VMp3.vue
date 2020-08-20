@@ -41,11 +41,11 @@
 
 <script>
 import test from './test.js' // 模拟数据
-import ArticleUser from './user/ArticleUser'
 
-import ComLoading from '@/components/common/ComLoading'
 import ComHeader from '@/components/common/ComHeader'
+import ComLoading from '@/components/common/ComLoading'
 
+import ArticleUser from './user/ArticleUser'
 
 import PageChat from './pageChat/pageChat'
 export default {

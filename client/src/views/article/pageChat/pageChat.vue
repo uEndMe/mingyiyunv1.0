@@ -33,11 +33,10 @@
 </template>
 
 <script>
-import ArticleChat from '../chat/ArticleChat'
+import ComHeader from '@/components/common/ComHeader';
 import ComInput from '@/components/common/ComInput';
 
-import ComHeader from '@/components/common/ComHeader';
-
+import ArticleChat from '../chat/ArticleChat'
 
 
 export default {
@@ -45,8 +44,8 @@ export default {
   name: 'PageChat',
   mixins: [],
   components: {
-    ComHeader,
     ComInput,
+    ComHeader,
     ArticleChat,
   },
 

@@ -46,12 +46,12 @@
 </template>
 
 <script>
-import { Tab, Tabs, Button } from 'vant';
-import ComLoading from '@/components/common/ComLoading'
+import { Button, Tab, Tabs } from 'vant';
 import ComHeader from '@/components/common/ComHeader'
+import ComLoading from '@/components/common/ComLoading'
 
-import FriendUser from './user/FriendUser'
 import FriendArticle from './article/FriendArticle'
+import FriendUser from './user/FriendUser'
 export default {
   // ---- ---- ---- ---- ---- 【组件信息】 ---- ---- ---- ---- ----
   name: '',

@@ -32,18 +32,20 @@
   </section>
 </template>
 <script>
-import ComLoading from "@/components/common/ComLoading.vue";
-import SliderTab from "@/components/SliderTabComponent.vue";
-import ComFooter from "@/components/common/ComFooter.vue";
-import ComSearch from "@/components/common/ComSearch";
+import { Sticky } from "vant";
 
-import SearchMore from "./search/SearchMore";
+import ComFooter from "@/components/common/ComFooter.vue";
+import ComLoading from "@/components/common/ComLoading.vue";
+import ComSearch from "@/components/common/ComSearch";
+import SliderTab from "@/components/SliderTabComponent.vue";
+
 import HomeSwipe from "./HomeSwipe";
 import HomeGrid from "./HomeGrid";
 import HomeCourse from "./HomeCourse";
 import HomeUpdate from "./HomeUpdate";
 
-import { Sticky } from "vant";
+import SearchMore from "./search/SearchMore";
+
 export default {
   name: "VHome",
   components: {

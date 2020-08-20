@@ -69,11 +69,11 @@
   </div>
 </template>
 <script>
-import product from '@/components/ProductComponent.vue';
-import ImAdmin from '@/components/IMAdminComponent.vue';
-import ImMember from '@/components/IMMemberComponent.vue';
-import ImField from '@/components/IMInputComponent.vue';
 import { Tab, Tabs, Image as VanImage, Card, Button } from 'vant';
+import ImAdmin from '@/components/IMAdminComponent.vue';
+import ImField from '@/components/IMInputComponent.vue';
+import ImMember from '@/components/IMMemberComponent.vue';
+import product from '@/components/ProductComponent.vue';
 
 import Vue from 'vue';
 import { mapState, mapGetters } from 'vuex';
